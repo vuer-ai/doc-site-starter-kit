@@ -1,0 +1,23 @@
+---
+title: QA Pairs
+section: Guides
+order: 4.5
+---
+
+A **QA Pair** is a library paired with its primary consumer — the package or app you run to manually verify the library works end-to-end.
+
+Every library should have at least one QA pair. To QA a library, you launch its consumer and exercise the integration points. If the consumer works, the library works.
+
+## Format
+
+| Library | QA Consumer | How to Test |
+|---------|------------|-------------|
+| `my-lib/` | `my-lib-docs/` | Run the doc site, verify components render |
+| `my-server/` | `my-client/` | Run the client against the server, verify API calls |
+
+## Why
+
+- Makes manual QA **concrete and repeatable** — no guessing what to run
+- Surfaces **integration bugs** that unit tests miss
+- Gives new contributors a clear starting point for verifying changes
+- Creates a natural **smoke test checklist** before releases

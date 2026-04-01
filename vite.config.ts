@@ -11,6 +11,7 @@ export default defineConfig({
     tailwindcss(),
     mdx({
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+      providerImportSource: '@mdx-js/react',
     }),
     react(),
     vike({ prerender: true }),

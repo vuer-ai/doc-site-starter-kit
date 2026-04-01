@@ -58,14 +58,12 @@ export const stackRows = [
     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 inline-block"></span>
     v0.1.0 — Now available
   </div>
-  <h1 className="text-5xl font-bold text-gray-900 tracking-tight mb-6 leading-tight">
-    Documentation<br />
-    <span className="text-indigo-600">Starter Kit</span>
-  </h1>
-  <p className="text-xl text-gray-500 max-w-2xl leading-relaxed mb-8">
-    A production-ready documentation site built with Vike, React 19, and Tailwind CSS v4.
-    Ship beautiful docs fast — without wrestling with build tools.
-  </p>
+
+# Documentation<br /><span className="text-indigo-600">Starter Kit</span>
+
+A production-ready documentation site built with Vike, React 19, and Tailwind CSS v4.
+Ship beautiful docs fast — without wrestling with build tools.
+
   <div className="flex flex-wrap gap-3">
     <a
       href="/getting-started"
@@ -85,9 +83,7 @@ export const stackRows = [
 {/* Quick install */}
 <div className="mb-16 p-5 rounded-xl" style={{ backgroundColor: 'rgb(var(--color-bg-secondary))', border: '1px solid rgb(var(--color-border))' }}>
   <p className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: 'rgb(var(--color-text-muted))' }}>Quick start</p>
-  <pre className="text-sm font-mono overflow-x-auto" style={{ color: 'rgb(var(--color-text))' }}>
-    <code>{`pnpm create vike@latest my-docs\ncd my-docs\npnpm install\npnpm dev`}</code>
-  </pre>
+  <CodeBlock language="bash" code={`pnpm create vike@latest my-docs\ncd my-docs\npnpm install\npnpm dev`} />
 </div>
 
 {/* Features grid */}
@@ -95,10 +91,9 @@ export const stackRows = [
 
 ## Everything you need
 
-<p className="text-gray-500 mb-8">
-  A curated set of modern tools that work together seamlessly, so you can focus on writing
-  great documentation instead of configuring build pipelines.
-</p>
+A curated set of modern tools that work together seamlessly, so you can focus on writing
+great documentation instead of configuring build pipelines.
+
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
   {features.map((feature) => (
     <div
@@ -116,7 +111,9 @@ export const stackRows = [
 {/* Stack details */}
 <div className="mb-16 rounded-xl border border-gray-200 overflow-hidden">
   <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-    <h2 className="font-semibold text-gray-900">Stack at a glance</h2>
+
+### Stack at a glance
+
   </div>
   <div className="divide-y divide-gray-100">
     {stackRows.map((row) => (
@@ -131,11 +128,11 @@ export const stackRows = [
 
 {/* CTA */}
 <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-8 text-center">
-  <h2 className="text-xl font-bold text-gray-900 mb-2">Ready to build your docs?</h2>
-  <p className="text-gray-500 mb-6 text-sm">
-    Clone the repo, run <code className="font-mono text-indigo-600">pnpm install</code>, and
-    start writing your first page in minutes.
-  </p>
+
+## Ready to build your docs?
+
+Clone the repo, run `pnpm install`, and start writing your first page in minutes.
+
   <a
     href="/getting-started"
     className="inline-flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-xl hover:bg-indigo-700 transition-colors"
