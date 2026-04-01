@@ -31,20 +31,13 @@ export function Sidebar() {
   const currentPath = pageContext.urlPathname
 
   return (
-    <aside className="w-64 shrink-0 border-r border-gray-200 bg-gray-50 min-h-screen sticky top-0 overflow-y-auto hidden md:block">
-      {/* Brand */}
-      <div className="px-6 py-5 border-b border-gray-200">
-        <a href="/" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 rounded-lg bg-indigo-500 flex items-center justify-center text-white font-bold text-sm group-hover:bg-indigo-600 transition-colors">
-            D
-          </div>
-          <span className="font-semibold text-gray-900 text-sm leading-tight">
-            Doc Site<br />
-            <span className="text-gray-500 font-normal">Starter Kit</span>
-          </span>
-        </a>
-      </div>
-
+    <aside
+      className="w-64 shrink-0 border-r min-h-[calc(100vh-3.5rem)] sticky top-14 overflow-y-auto hidden md:block"
+      style={{
+        backgroundColor: 'rgb(var(--color-sidebar-bg))',
+        borderColor: 'rgb(var(--color-sidebar-border))',
+      }}
+    >
       {/* Nav */}
       <nav className="px-3 py-4 space-y-6">
         {navigation.map((group) => (
@@ -78,7 +71,10 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="px-6 py-4 border-t border-gray-200 mt-auto">
+      <div
+        className="px-6 py-4 border-t mt-auto"
+        style={{ borderColor: 'rgb(var(--color-sidebar-border))' }}
+      >
         <p className="text-xs text-gray-400">v0.1.0</p>
       </div>
     </aside>

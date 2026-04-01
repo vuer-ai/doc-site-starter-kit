@@ -2,9 +2,30 @@
 
 @layer base {
   :root {
-    --color-primary: 99 102 241;
+    --color-bg: 255 255 255;
+    --color-text: 17 24 39;
     --color-sidebar-bg: 249 250 251;
     --color-sidebar-border: 229 231 235;
+    --color-border: 229 231 235;
+    --color-primary: 99 102 241;
+  }
+
+  [data-theme="dark"] {
+    --color-bg: 15 23 42;
+    --color-text: 226 232 240;
+    --color-sidebar-bg: 15 23 42;
+    --color-sidebar-border: 30 41 59;
+    --color-border: 30 41 59;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-bg: 15 23 42;
+      --color-text: 226 232 240;
+      --color-sidebar-bg: 15 23 42;
+      --color-sidebar-border: 30 41 59;
+      --color-border: 30 41 59;
+    }
   }
 
   html {
