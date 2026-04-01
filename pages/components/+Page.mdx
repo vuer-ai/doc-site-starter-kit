@@ -5,23 +5,6 @@ order: 5
 ---
 
 import { useState, useEffect } from 'react'
-import { CodeBlock } from '../../components/CodeBlock'
-
-export function ComponentSection({ title, description, children, code }) {
-  return (
-    <div className="mb-14">
-      <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
-      <p className="text-gray-500 mb-6">{description}</p>
-      <div className="rounded-xl border border-gray-200 overflow-hidden mb-4">
-        <div className="px-4 py-2.5 border-b border-gray-200 bg-gray-50">
-          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Preview</span>
-        </div>
-        <div className="p-6 bg-white">{children}</div>
-      </div>
-      <CodeBlock language="tsx" code={code} />
-    </div>
-  )
-}
 
 export function ClientOnlyDemo() {
   const [mounted, setMounted] = useState(false)
@@ -41,8 +24,6 @@ export function ClientOnlyDemo() {
     </span>
   )
 }
-
-<p className="text-sm font-medium text-indigo-600 mb-2 uppercase tracking-wide">Guides</p>
 
 # Components
 
@@ -247,31 +228,30 @@ function Step({ number, title, children }: { number: number; title: string; chil
   <ClientOnlyDemo />
 </ComponentSection>
 
-<div className="mb-14">
-  <h3 className="text-lg font-semibold text-gray-900 mb-4">Props</h3>
-  <div className="rounded-xl border border-gray-200 overflow-hidden">
-    <table className="w-full text-sm">
-      <thead>
-        <tr className="bg-gray-50 border-b border-gray-200">
-          <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Prop</th>
-          <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Type</th>
-          <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Required</th>
-          <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Description</th>
+### Props
+
+<div className="rounded-xl border border-gray-200 overflow-hidden">
+  <table className="w-full text-sm">
+    <thead>
+      <tr className="bg-gray-50 border-b border-gray-200">
+        <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Prop</th>
+        <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Type</th>
+        <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Required</th>
+        <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Description</th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-gray-100">
+      {[
+        { name: 'children', type: 'React.ReactNode', req: true, desc: 'Content rendered only after the component mounts on the client.' },
+        { name: 'fallback', type: 'React.ReactNode', req: false, desc: 'Content shown on the server and during hydration. Defaults to null.' },
+      ].map((r) => (
+        <tr key={r.name}>
+          <td className="px-4 py-2.5 font-mono text-indigo-600 text-xs">{r.name}</td>
+          <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{r.type}</td>
+          <td className="px-4 py-2.5 text-xs text-center">{r.req ? '✓' : '—'}</td>
+          <td className="px-4 py-2.5 text-gray-600 text-sm">{r.desc}</td>
         </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-100">
-        {[
-          { name: 'children', type: 'React.ReactNode', req: true, desc: 'Content rendered only after the component mounts on the client.' },
-          { name: 'fallback', type: 'React.ReactNode', req: false, desc: 'Content shown on the server and during hydration. Defaults to null.' },
-        ].map((r) => (
-          <tr key={r.name}>
-            <td className="px-4 py-2.5 font-mono text-indigo-600 text-xs">{r.name}</td>
-            <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{r.type}</td>
-            <td className="px-4 py-2.5 text-xs text-center">{r.req ? '✓' : '—'}</td>
-            <td className="px-4 py-2.5 text-gray-600 text-sm">{r.desc}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+      ))}
+    </tbody>
+  </table>
 </div>

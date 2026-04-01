@@ -4,8 +4,6 @@ section: Introduction
 order: 3
 ---
 
-import { CodeBlock } from '../../components/CodeBlock'
-
 Install the doc-site-starter-kit from scratch or bootstrap it into an existing project.
 Choose your preferred package manager below.
 
@@ -52,15 +50,21 @@ its superior speed and disk efficiency, especially in monorepo setups.
 
 ### <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">RECOMMENDED</span> pnpm
 
-<CodeBlock language="bash" code="pnpm install" />
+```bash
+pnpm install
+```
 
 ### npm
 
-<CodeBlock language="bash" code="npm install" />
+```bash
+npm install
+```
 
 ### yarn
 
-<CodeBlock language="bash" code="yarn install" />
+```bash
+yarn install
+```
 
 ## Adding to an existing project
 
@@ -69,56 +73,58 @@ the starter kit, install the dependencies individually:
 
 ### Runtime dependencies
 
-<CodeBlock language="bash" code="pnpm add react react-dom vike vike-react" />
+```bash
+pnpm add react react-dom vike vike-react
+```
 
 ### Dev dependencies
 
-<CodeBlock language="bash" code="pnpm add -D @types/react @types/react-dom @vitejs/plugin-react typescript vite @tailwindcss/vite tailwindcss" />
+```bash
+pnpm add -D @types/react @types/react-dom @vitejs/plugin-react typescript vite @tailwindcss/vite tailwindcss
+```
 
 ## Verify the installation
 
 After installing, run the development server to confirm everything is working:
 
-<CodeBlock language="bash" code="pnpm dev" />
+```bash
+pnpm dev
+```
 
 You should see output similar to:
 
-<CodeBlock
-  language="text"
-  code={`  VITE v6.x.x  ready in 312 ms
+```text
+  VITE v6.x.x  ready in 312 ms
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: use --host to expose
-  ➜  press h + enter to show help`}
-/>
+  ➜  press h + enter to show help
+```
 
 ## Troubleshooting
 
 <div className="space-y-4">
-  <div className="p-4 rounded-xl border border-gray-200">
-    <p className="font-semibold text-gray-900 mb-1">"Cannot find module 'vike/plugin'"</p>
-    <p className="text-sm text-gray-600 mb-2">
-      This usually means the vike package is not installed or your node_modules is corrupted.
-    </p>
-    <CodeBlock language="bash" code="rm -rf node_modules pnpm-lock.yaml && pnpm install" />
-  </div>
-  <div className="p-4 rounded-xl border border-gray-200">
-    <p className="font-semibold text-gray-900 mb-1">Tailwind styles not applying</p>
-    <p className="text-sm text-gray-600 mb-2">
-      Ensure the <code className="font-mono text-indigo-600">@tailwindcss/vite</code> plugin is
-      listed before <code className="font-mono text-indigo-600">@vitejs/plugin-react</code> in
-      your <code className="font-mono text-indigo-600">vite.config.ts</code> plugins array.
-      Also confirm your CSS entry file starts with <code className="font-mono text-indigo-600">@import "tailwindcss"</code>.
-    </p>
-  </div>
-  <div className="p-4 rounded-xl border border-gray-200">
-    <p className="font-semibold text-gray-900 mb-1">TypeScript errors on React 19 types</p>
-    <p className="text-sm text-gray-600">
-      Make sure <code className="font-mono text-indigo-600">@types/react</code> and{' '}
-      <code className="font-mono text-indigo-600">@types/react-dom</code> are both on version{' '}
-      <code className="font-mono text-indigo-600">^19.0.0</code>. Run{' '}
-      <code className="font-mono text-indigo-600">pnpm update @types/react @types/react-dom</code> to
-      upgrade.
-    </p>
-  </div>
+
+<Callout type="warning">
+**"Cannot find module 'vike/plugin'"**
+
+This usually means the vike package is not installed or your node\_modules is corrupted.
+
+<CodeBlock language="bash" code="rm -rf node_modules pnpm-lock.yaml && pnpm install" />
+</Callout>
+
+<Callout type="info">
+**Tailwind styles not applying**
+
+Ensure the `@tailwindcss/vite` plugin is listed before `@vitejs/plugin-react` in
+your `vite.config.ts` plugins array. Also confirm your CSS entry file starts with `@import "tailwindcss"`.
+</Callout>
+
+<Callout type="info">
+**TypeScript errors on React 19 types**
+
+Make sure `@types/react` and `@types/react-dom` are both on version `^19.0.0`.
+Run `pnpm update @types/react @types/react-dom` to upgrade.
+</Callout>
+
 </div>
