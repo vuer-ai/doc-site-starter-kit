@@ -33,7 +33,7 @@ export function DocFooter() {
                 href={prev.path}
                 className="w-48 flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline"
                 style={btnStyle}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'rgb(var(--color-bg-secondary))' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'var(--color-hover)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
               >
                 <ChevronLeft size={15} className="shrink-0" />
@@ -49,7 +49,7 @@ export function DocFooter() {
                 href={next.path}
                 className="w-48 flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline text-right"
                 style={btnStyle}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'rgb(var(--color-bg-secondary))' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'var(--color-hover)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
               >
                 <span className="flex flex-col items-end">
