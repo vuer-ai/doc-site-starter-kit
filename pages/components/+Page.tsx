@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 function CodeBlock({ code, lang = 'tsx', filename }: { code: string; lang?: string; filename?: string }) {
   return (
@@ -36,6 +36,25 @@ function ComponentSection({
       </div>
       <CodeBlock lang="tsx" code={code} />
     </div>
+  )
+}
+
+function ClientOnlyDemo() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const fallback = (
+    <span className="text-gray-400 text-sm">Loading...</span>
+  )
+
+  if (!mounted) return <>{fallback}</>
+  return (
+    <span className="text-sm font-medium text-green-700 bg-green-50 px-3 py-1.5 rounded-lg border border-green-200">
+      Loaded on client
+    </span>
   )
 }
 
@@ -242,6 +261,53 @@ function Step({ number, title, children }: { number: number; title: string; chil
           </table>
         </div>
       </ComponentSection>
+
+      {/* ClientOnly */}
+      <ComponentSection
+        title="ClientOnly"
+        description="Render children only after hydration to avoid SSR/hydration mismatches for browser-only content."
+        code={`import { ClientOnly } from '../components/ClientOnly'
+
+// Renders fallback on the server and during hydration,
+// then swaps in children once the component mounts on the client.
+<ClientOnly fallback={<span className="text-gray-400 text-sm">Loading...</span>}>
+  <span className="text-sm font-medium text-green-700 bg-green-50 px-3 py-1.5 rounded-lg border border-green-200">
+    Loaded on client
+  </span>
+</ClientOnly>`}
+      >
+        <ClientOnlyDemo />
+      </ComponentSection>
+
+      {/* ClientOnly props table */}
+      <div className="mb-14">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Props</h3>
+        <div className="rounded-xl border border-gray-200 overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-200">
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Prop</th>
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Type</th>
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Required</th>
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {[
+                { name: 'children', type: 'React.ReactNode', req: true, desc: 'Content rendered only after the component mounts on the client.' },
+                { name: 'fallback', type: 'React.ReactNode', req: false, desc: 'Content shown on the server and during hydration. Defaults to null.' },
+              ].map((r) => (
+                <tr key={r.name}>
+                  <td className="px-4 py-2.5 font-mono text-indigo-600 text-xs">{r.name}</td>
+                  <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{r.type}</td>
+                  <td className="px-4 py-2.5 text-xs text-center">{r.req ? '✓' : '—'}</td>
+                  <td className="px-4 py-2.5 text-gray-600 text-sm">{r.desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div className="flex items-center justify-between pt-8 border-t border-gray-200">
         <a href="/configuration" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
