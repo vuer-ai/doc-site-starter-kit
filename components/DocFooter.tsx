@@ -62,7 +62,7 @@ export function DocFooter() {
 
           </div>
         </div>
-        <div className="hidden lg:block w-56 shrink-0" />
+        <div className="hidden lg:block w-72 shrink-0" />
       </div>
     </footer>
   )

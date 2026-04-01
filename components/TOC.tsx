@@ -65,7 +65,7 @@ export function TOC() {
   if (!mounted || headings.length === 0) return null
 
   return (
-    <nav className="sticky top-24 hidden lg:block w-56 shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto">
+    <nav className="sticky top-24 hidden lg:block w-72 shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto">
       <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
         On this page
       </p>
