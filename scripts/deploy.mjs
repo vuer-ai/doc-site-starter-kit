@@ -11,18 +11,18 @@ const versionAlias = `v${version.replace(/\./g, '-')}`
 console.log(`\n📦 Building doc-site-starter-kit v${version}...\n`)
 execSync('pnpm run build', { stdio: 'inherit' })
 
-console.log(`\n🚀 Deploying to docs.dreamlake.ai (production)...\n`)
+console.log(`\n🚀 Deploying to ui-doc-template.vuer.ai (production)...\n`)
 execSync(
   `netlify deploy --prod --dir=dist/client --message="Deploy v${version}"`,
   { stdio: 'inherit' }
 )
 
-console.log(`\n📌 Deploying permanent version alias: ${versionAlias}.docs.dreamlake.ai...\n`)
+console.log(`\n📌 Deploying permanent version alias: ${versionAlias}.ui-doc-template.vuer.ai...\n`)
 execSync(
   `netlify deploy --alias=${versionAlias} --dir=dist/client --message="Version ${version} snapshot"`,
   { stdio: 'inherit' }
 )
 
 console.log(`\n✅ Deploy complete!`)
-console.log(`   Production: https://docs.dreamlake.ai`)
-console.log(`   Version snapshot: https://${versionAlias}.docs.dreamlake.ai\n`)
+console.log(`   Production: https://ui-doc-template.vuer.ai`)
+console.log(`   Version snapshot: https://${versionAlias}.ui-doc-template.vuer.ai\n`)

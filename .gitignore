@@ -7,3 +7,7 @@ dist/
 .code
 .claude
 .idea
+
+# Netlify — ignore local state except the site link
+.netlify/*
+!.netlify/state.json
