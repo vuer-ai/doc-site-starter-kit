@@ -23,7 +23,7 @@ pnpm preview   # preview production build locally
 
 The site deploys to [Netlify](https://netlify.com) via `netlify.toml`.
 
-- **Production:** [https://doc.dreamlake.ai](https://doc.dreamlake.ai) — always reflects the latest release
+- **Production:** [https://ui-doc-template.vuer.ai](https://ui-doc-template.vuer.ai) — always reflects the latest release
 - **Version snapshots:** permanent subdomains are created for each versioned release
 
 ### Subdomain naming
@@ -31,10 +31,10 @@ The site deploys to [Netlify](https://netlify.com) via `netlify.toml`.
 Each version gets a permanent subdomain with dots replaced by dashes:
 
 ```
-v{major}-{minor}-{patch}.doc.dreamlake.ai
+v{major}-{minor}-{patch}.ui-doc-template.vuer.ai
 ```
 
-For example, version `0.2.1` is available at `v0-2-1.doc.dreamlake.ai`.
+For example, version `0.2.1` is available at `v0-2-1.ui-doc-template.vuer.ai`.
 
 ### Deploy a release
 
@@ -42,6 +42,6 @@ For example, version `0.2.1` is available at `v0-2-1.doc.dreamlake.ai`.
 pnpm deploy
 ```
 
-This builds the site, pushes to production (`doc.dreamlake.ai`), and creates a permanent versioned snapshot based on the version in `package.json`.
+This builds the site, pushes to production (`ui-doc-template.vuer.ai`), and creates a permanent versioned snapshot based on the version in `package.json`.
 
 Requires the [Netlify CLI](https://docs.netlify.com/cli/get-started/) to be installed and authenticated.
