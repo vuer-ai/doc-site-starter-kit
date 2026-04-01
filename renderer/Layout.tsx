@@ -45,41 +45,40 @@ export function Layout({ children }: { children: React.ReactNode }) {
             borderTop: '1px solid rgb(var(--color-border) / 0.5)',
           }}
         >
-          <div className="h-full max-w-2xl mx-auto px-8 flex items-center justify-between">
-            <button
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              style={{
-                color: 'rgb(var(--color-text-muted))',
-                border: '1px solid rgb(var(--color-border))',
-                backgroundColor: 'rgb(var(--color-bg-secondary))',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))'
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))'
-              }}
-            >
-              <ChevronLeft size={15} />
-              Previous
-            </button>
-            <button
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              style={{
-                color: 'rgb(var(--color-text-muted))',
-                border: '1px solid rgb(var(--color-border))',
-                backgroundColor: 'rgb(var(--color-bg-secondary))',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))'
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))'
-              }}
-            >
-              Next
-              <ChevronRight size={15} />
-            </button>
+          {/* mirror main layout: flex-1 content + TOC spacer */}
+          <div className="h-full flex">
+            <div className="flex-1 flex items-center px-8">
+              <div className="max-w-2xl w-full mx-auto flex items-center justify-between">
+                <button
+                  className="flex items-center gap-2 px-5 rounded-lg text-sm font-medium transition-colors"
+                  style={{
+                    height: '75px',
+                    color: 'rgb(var(--color-text-muted))',
+                    backgroundColor: 'rgb(var(--color-bg-secondary))',
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))' }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))' }}
+                >
+                  <ChevronLeft size={15} />
+                  Previous
+                </button>
+                <button
+                  className="flex items-center gap-2 px-5 rounded-lg text-sm font-medium transition-colors"
+                  style={{
+                    height: '75px',
+                    color: 'rgb(var(--color-text-muted))',
+                    backgroundColor: 'rgb(var(--color-bg-secondary))',
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))' }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))' }}
+                >
+                  Next
+                  <ChevronRight size={15} />
+                </button>
+              </div>
+            </div>
+            {/* TOC-width spacer so buttons align with main text column */}
+            <div className="hidden lg:block w-56 shrink-0" />
           </div>
         </footer>
       </div>
