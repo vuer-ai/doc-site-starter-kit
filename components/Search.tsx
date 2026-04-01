@@ -98,7 +98,7 @@ export function Search() {
             style={{ color: 'rgb(var(--color-text))' }}
           />
           <kbd
-            className="text-xs px-1.5 py-0.5 rounded"
+            className="text-xs px-1.5 py-0.5 rounded-lg"
             style={{
               backgroundColor: 'rgb(var(--color-bg-secondary))',
               border: '1px solid rgb(var(--color-border))',

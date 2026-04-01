@@ -1,0 +1,198 @@
+---
+title: Version Badge
+section: Components
+order: 5.5
+---
+
+import { CodeBlock } from '../../components/CodeBlock'
+import { PackageBadge, VersionBadge } from '../../components/VersionBadge'
+
+The `VersionBadge` and `PackageBadge` components display package name, version, and git hash information in a compact inline badge. They are designed for use within this documentation framework itself.
+
+<div className="p-4 rounded-xl border text-sm" style={{ backgroundColor: 'rgb(var(--color-primary-muted))', borderColor: 'rgb(var(--color-primary) / 0.2)', color: 'rgb(var(--color-text))' }}>
+  <strong>Important:</strong> These components are part of the doc-site framework's internal tooling.
+  Libraries documented by this site should <strong>not</strong> depend on or inherit from these badge
+  components. The dependency flows one way only: the doc site depends on the library — never the reverse.
+  Use this component as a <strong>reference implementation</strong> if you need similar functionality
+  in your own project.
+</div>
+
+## Preview
+
+<div className="space-y-4 my-6">
+  <div className="flex items-center gap-3">
+    <span className="text-sm w-40 shrink-0" style={{ color: 'rgb(var(--color-text-muted))' }}>Package + version</span>
+    <PackageBadge packageName="starter-kit" packageFullName="doc-site-starter-kit" versionText="v0.1.0" linkable={false} />
+  </div>
+  <div className="flex items-center gap-3">
+    <span className="text-sm w-40 shrink-0" style={{ color: 'rgb(var(--color-text-muted))' }}>Version only</span>
+    <PackageBadge packageFullName="doc-site-starter-kit" versionText="0.1.0" linkable={false} />
+  </div>
+  <div className="flex items-center gap-3">
+    <span className="text-sm w-40 shrink-0" style={{ color: 'rgb(var(--color-text-muted))' }}>With git hash</span>
+    <PackageBadge packageName="starter-kit" packageFullName="doc-site-starter-kit" versionText="v0.1.0" gitHash="a1b2c3d" linkable={false} />
+  </div>
+  <div className="flex items-center gap-3">
+    <span className="text-sm w-40 shrink-0" style={{ color: 'rgb(var(--color-text-muted))' }}>VersionBadge (auto)</span>
+    <VersionBadge package version prefix />
+  </div>
+</div>
+
+## Usage
+
+There are two components: `PackageBadge` (low-level, explicit props) and `VersionBadge` (high-level, boolean flags that read from build-time constants).
+
+### PackageBadge
+
+Pass explicit values for full control:
+
+<CodeBlock
+  language="tsx"
+  code={`import { PackageBadge } from '../components/VersionBadge'\n\n<PackageBadge\n  packageName="my-lib"\n  packageFullName="@org/my-lib"\n  versionText="v1.2.3"\n  gitHash="a1b2c3d"\n  linkable\n/>`}
+/>
+
+### VersionBadge
+
+Toggle display flags — values are read automatically from build-time constants or `package.json`:
+
+<CodeBlock
+  language="tsx"
+  code={`import { VersionBadge } from '../components/VersionBadge'\n\n{/* Show package name + version with "v" prefix */}\n<VersionBadge package version prefix />\n\n{/* Version only, no link */}\n<VersionBadge version />\n\n{/* Everything: package, version, git hash, all clickable */}\n<VersionBadge package version prefix hash linkable />`}
+/>
+
+## Build-time constants
+
+The `VersionBadge` reads from three compile-time constants that can be injected via Vite's `define` option:
+
+<div className="rounded-xl border overflow-hidden" style={{ borderColor: 'rgb(var(--color-border))' }}>
+  <table className="w-full text-sm">
+    <thead>
+      <tr style={{ backgroundColor: 'rgb(var(--color-bg-secondary))', borderBottom: '1px solid rgb(var(--color-border))' }}>
+        <th className="text-left px-5 py-3 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Constant</th>
+        <th className="text-left px-5 py-3 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Fallback</th>
+        <th className="text-left px-5 py-3 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-5 py-3 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>__PACKAGE_VERSION__</td>
+        <td className="px-5 py-3 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>package.json version</td>
+        <td className="px-5 py-3" style={{ color: 'rgb(var(--color-text-muted))' }}>The package version string</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-5 py-3 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>__PACKAGE_NAME__</td>
+        <td className="px-5 py-3 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>package.json name</td>
+        <td className="px-5 py-3" style={{ color: 'rgb(var(--color-text-muted))' }}>The full package name (scoped or unscoped)</td>
+      </tr>
+      <tr>
+        <td className="px-5 py-3 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>__GIT_HASH__</td>
+        <td className="px-5 py-3 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))'}}>"unknown"</td>
+        <td className="px-5 py-3" style={{ color: 'rgb(var(--color-text-muted))' }}>Short git commit hash for the current build</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Configure these in `vite.config.ts`:
+
+<CodeBlock
+  language="ts"
+  filename="vite.config.ts"
+  code={`export default defineConfig({\n  define: {\n    __PACKAGE_VERSION__: JSON.stringify(process.env.npm_package_version),\n    __PACKAGE_NAME__: JSON.stringify(process.env.npm_package_name),\n    __GIT_HASH__: JSON.stringify(process.env.GIT_HASH || 'unknown'),\n  },\n  // ... other config\n})`}
+/>
+
+## Props
+
+### PackageBadgeProps
+
+<div className="rounded-xl border overflow-hidden" style={{ borderColor: 'rgb(var(--color-border))' }}>
+  <table className="w-full text-sm">
+    <thead>
+      <tr style={{ backgroundColor: 'rgb(var(--color-bg-secondary))', borderBottom: '1px solid rgb(var(--color-border))' }}>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Prop</th>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Type</th>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Default</th>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>packageName</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>string</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>—</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Short package name displayed in the primary slot</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>packageFullName</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>string</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>—</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Full npm package name used for the version link</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>versionText</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>string</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>—</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Version string to display (e.g. "v1.2.3")</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>linkable</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>boolean</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>true</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Whether version and hash link to npm / GitHub</td>
+      </tr>
+      <tr>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>gitHash</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>string</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>—</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Git commit hash to display after the version</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+### VersionBadgeProps
+
+<div className="rounded-xl border overflow-hidden" style={{ borderColor: 'rgb(var(--color-border))' }}>
+  <table className="w-full text-sm">
+    <thead>
+      <tr style={{ backgroundColor: 'rgb(var(--color-bg-secondary))', borderBottom: '1px solid rgb(var(--color-border))' }}>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Prop</th>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Type</th>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Default</th>
+        <th className="text-left px-4 py-2.5 font-semibold" style={{ color: 'rgb(var(--color-text))' }}>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>package</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>boolean</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>false</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Show the package name</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>version</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>boolean</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>false</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Show the version number</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>prefix</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>boolean</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>false</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Prepend "v" to the version string</td>
+      </tr>
+      <tr style={{ borderBottom: '1px solid rgb(var(--color-border) / 0.5)' }}>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>hash</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>boolean</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>false</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Show the git commit hash</td>
+      </tr>
+      <tr>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-primary))' }}>linkable</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>boolean</td>
+        <td className="px-4 py-2.5 font-mono text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>false</td>
+        <td className="px-4 py-2.5" style={{ color: 'rgb(var(--color-text-muted))' }}>Make version and hash clickable (npm / GitHub links)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

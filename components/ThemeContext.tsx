@@ -19,6 +19,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem('theme') as Theme | null
     if (stored === 'light' || stored === 'dark' || stored === 'system') {
       setThemeState(stored)
+      if (stored === 'system') {
+        document.documentElement.removeAttribute('data-theme')
+      } else {
+        document.documentElement.setAttribute('data-theme', stored)
+      }
     }
   }, [])
 
