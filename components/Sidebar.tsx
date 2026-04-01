@@ -32,7 +32,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className="w-56 shrink-0 border-r min-h-[calc(100vh-3.5rem)] sticky top-14 overflow-y-auto hidden md:block"
+      className="w-56 shrink-0 border-r h-[calc(100vh-3.5rem)] sticky top-14 overflow-y-auto hidden md:block"
       style={{
         backgroundColor: 'rgb(var(--color-sidebar-bg))',
         borderColor: 'rgb(var(--color-sidebar-border))',
