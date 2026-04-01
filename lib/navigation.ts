@@ -5,13 +5,13 @@ export interface PageMeta {
 }
 
 const modules = import.meta.glob<{ title: string; section: string; order: number }>(
-  '../pages/**/content.mdx',
+  '../pages/**/+Page.mdx',
   { eager: true }
 )
 
 export const pages: PageMeta[] = Object.entries(modules)
   .map(([filePath, mod]) => {
-    const dir = filePath.replace('../pages/', '').replace('/content.mdx', '')
+    const dir = filePath.replace('../pages/', '').replace('/+Page.mdx', '')
     return {
       path: dir === 'index' ? '/' : `/${dir}`,
       title: mod.title ?? dir,
