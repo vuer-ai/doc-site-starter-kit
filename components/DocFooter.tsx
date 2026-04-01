@@ -31,32 +31,36 @@ export function DocFooter() {
             {prev ? (
               <a
                 href={prev.path}
-                className="w-48 flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline"
+                className="w-48 flex items-center justify-start px-5 rounded-lg text-sm font-medium transition-colors no-underline"
                 style={btnStyle}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'var(--color-hover)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
               >
-                <ChevronLeft size={15} className="shrink-0" />
-                <span className="flex flex-col">
-                  <span className="text-xs opacity-60 font-normal mb-0.5">Previous</span>
-                  {prev.title}
-                </span>
+                <div className="flex items-center gap-3">
+                  <ChevronLeft size={15} className="shrink-0" />
+                  <span className="flex flex-col">
+                    <span className="text-xs opacity-60 font-normal mb-0.5">Previous</span>
+                    {prev.title}
+                  </span>
+                </div>
               </a>
             ) : <div />}
 
             {next ? (
               <a
                 href={next.path}
-                className="w-48 flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline text-right"
+                className="w-48 flex items-center justify-end px-5 rounded-lg text-sm font-medium transition-colors no-underline"
                 style={btnStyle}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'var(--color-hover)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
               >
-                <span className="flex flex-col items-end">
-                  <span className="text-xs opacity-60 font-normal mb-0.5">Next</span>
-                  {next.title}
-                </span>
-                <ChevronRight size={15} className="shrink-0" />
+                <div className="flex items-center gap-3">
+                  <span className="flex flex-col items-end">
+                    <span className="text-xs opacity-60 font-normal mb-0.5">Next</span>
+                    {next.title}
+                  </span>
+                  <ChevronRight size={15} className="shrink-0" />
+                </div>
               </a>
             ) : <div />}
 
