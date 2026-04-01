@@ -1,4 +1,5 @@
 import React from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Sidebar } from '../components/Sidebar'
 import { Navbar } from '../components/Navbar'
 import { ThemeProvider } from '../components/ThemeContext'
@@ -18,9 +19,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Navbar />
         <div className="flex">
           <Sidebar />
-          <div className="flex-1 min-w-0 flex flex-col min-h-[calc(100vh-3.5rem)]">
-            <div className="flex flex-1">
-              <main className="flex-1 min-w-0 px-8 py-10">
+          <div className="flex-1 min-w-0">
+            <div className="flex">
+              {/* main content — pb clears the fixed footer */}
+              <main className="flex-1 min-w-0 px-8 py-10 pb-[180px]">
                 <div className="max-w-2xl mx-auto">
                   {children}
                 </div>
@@ -29,25 +31,57 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <TOC />
               </div>
             </div>
-
-            <footer
-              className="border-t"
-              style={{
-                backgroundColor: 'rgb(var(--color-bg-secondary))',
-                borderColor: 'rgb(var(--color-border))',
-              }}
-            >
-              <div className="max-w-2xl mx-auto px-8 py-4 flex items-center justify-between">
-                <span className="text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>
-                  Doc Site Starter Kit
-                </span>
-                <span className="text-xs" style={{ color: 'rgb(var(--color-text-muted))' }}>
-                  v0.1.0
-                </span>
-              </div>
-            </footer>
           </div>
         </div>
+
+        {/* Frosted glass footer — fixed, starts after sidebar on md+ */}
+        <footer
+          className="fixed bottom-0 left-0 md:left-56 right-0 z-40"
+          style={{
+            height: '150px',
+            backgroundColor: 'var(--color-bg-fog)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderTop: '1px solid rgb(var(--color-border) / 0.5)',
+          }}
+        >
+          <div className="h-full max-w-2xl mx-auto px-8 flex items-center justify-between">
+            <button
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              style={{
+                color: 'rgb(var(--color-text-muted))',
+                border: '1px solid rgb(var(--color-border))',
+                backgroundColor: 'rgb(var(--color-bg-secondary))',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))'
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))'
+              }}
+            >
+              <ChevronLeft size={15} />
+              Previous
+            </button>
+            <button
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              style={{
+                color: 'rgb(var(--color-text-muted))',
+                border: '1px solid rgb(var(--color-border))',
+                backgroundColor: 'rgb(var(--color-bg-secondary))',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))'
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))'
+              }}
+            >
+              Next
+              <ChevronRight size={15} />
+            </button>
+          </div>
+        </footer>
       </div>
     </ThemeProvider>
   )
