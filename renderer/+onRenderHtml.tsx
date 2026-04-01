@@ -1,16 +1,20 @@
 import ReactDOMServer from 'react-dom/server'
 import { Layout } from './Layout'
 import React from 'react'
+import { PageContextProvider } from 'vike-react/usePageContext'
+import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 
 export async function onRenderHtml(pageContext: any) {
   const { Page, pageProps } = pageContext
   const html = ReactDOMServer.renderToString(
-    <Layout>
-      <Page {...pageProps} />
-    </Layout>
+    <PageContextProvider pageContext={pageContext}>
+      <Layout>
+        <Page {...pageProps} />
+      </Layout>
+    </PageContextProvider>
   )
   return {
-    documentHtml: `<!DOCTYPE html>
+    documentHtml: escapeInject`<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +22,7 @@ export async function onRenderHtml(pageContext: any) {
     <title>Doc Site Starter Kit</title>
   </head>
   <body>
-    <div id="root">${html}</div>
+    <div id="root">${dangerouslySkipEscape(html)}</div>
   </body>
 </html>`,
     pageContext: {}
