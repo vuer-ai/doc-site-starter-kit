@@ -1,18 +1,5 @@
 import React from 'react'
-
-function CodeBlock({ code, lang = 'ts', filename }: { code: string; lang?: string; filename?: string }) {
-  return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden mb-6">
-      <div className="px-4 py-2 border-b border-gray-800 flex items-center justify-between">
-        {filename && <span className="text-xs text-gray-300 font-mono">{filename}</span>}
-        {!filename && <span className="text-xs text-gray-400 font-mono">{lang}</span>}
-      </div>
-      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
-        <code>{code}</code>
-      </pre>
-    </div>
-  )
-}
+import { CodeBlock } from '../../components/CodeBlock'
 
 function OptionRow({
   name,
@@ -56,7 +43,7 @@ export function Page() {
         </p>
         <CodeBlock
           filename="vite.config.ts"
-          lang="ts"
+          language="ts"
           code={`import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import vike from 'vike/plugin'
@@ -117,7 +104,7 @@ export default defineConfig({
         </p>
         <CodeBlock
           filename="renderer/+config.ts"
-          lang="ts"
+          language="ts"
           code={`export default {
   // Properties serialised and sent to the client for hydration
   passToClient: ['pageProps', 'urlPathname'],
@@ -139,7 +126,7 @@ export default defineConfig({
         </p>
         <CodeBlock
           filename="styles/global.css"
-          lang="css"
+          language="css"
           code={`@import "tailwindcss";
 
 /* Override or extend the default theme */
@@ -195,7 +182,7 @@ export default defineConfig({
         </p>
         <CodeBlock
           filename="tsconfig.json"
-          lang="json"
+          language="json"
           code={`{
   "compilerOptions": {
     "target": "ES2022",
@@ -221,7 +208,7 @@ export default defineConfig({
         </p>
         <CodeBlock
           filename=".env.local"
-          lang="bash"
+          language="bash"
           code={`# Netlify deploy credentials
 NETLIFY_SITE_ID=your-site-id-here
 NETLIFY_AUTH_TOKEN=your-auth-token-here

@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
-function CodeBlock({ code, lang = 'tsx', filename }: { code: string; lang?: string; filename?: string }) {
-  return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden mb-6">
-      <div className="px-4 py-2 border-b border-gray-800 flex items-center">
-        <span className="text-xs text-gray-300 font-mono">{filename ?? lang}</span>
-      </div>
-      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
-        <code>{code}</code>
-      </pre>
-    </div>
-  )
-}
+import { CodeBlock } from '../../components/CodeBlock'
 
 function ComponentSection({
   title,
@@ -34,7 +22,7 @@ function ComponentSection({
         </div>
         <div className="p-6 bg-white">{children}</div>
       </div>
-      <CodeBlock lang="tsx" code={code} />
+      <CodeBlock language="tsx" code={code} />
     </div>
   )
 }
@@ -120,19 +108,16 @@ export function Page() {
   )
 }`}
       >
-        <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden">
-          <div className="px-4 py-2 border-b border-gray-800">
-            <span className="text-xs text-gray-300 font-mono">vite.config.ts</span>
-          </div>
-          <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
-            <code>{`import { defineConfig } from 'vite'
+        <CodeBlock
+          filename="vite.config.ts"
+          language="ts"
+          code={`import { defineConfig } from 'vite'
 import vike from 'vike/plugin'
 
 export default defineConfig({
   plugins: [vike({ prerender: true })],
-})`}</code>
-          </pre>
-        </div>
+})`}
+        />
       </ComponentSection>
 
       {/* Badge */}

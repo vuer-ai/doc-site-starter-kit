@@ -1,4 +1,5 @@
 import React from 'react'
+import { CodeBlock } from '../../components/CodeBlock'
 
 function Step({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
   return (
@@ -10,21 +11,6 @@ function Step({ number, title, children }: { number: number; title: string; chil
         <h3 className="text-lg font-semibold text-gray-900 mb-3">{title}</h3>
         {children}
       </div>
-    </div>
-  )
-}
-
-function CodeBlock({ code, lang = 'bash' }: { code: string; lang?: string }) {
-  return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden mb-4">
-      {lang && (
-        <div className="px-4 py-2 border-b border-gray-800 flex items-center gap-2">
-          <span className="text-xs text-gray-400 font-mono">{lang}</span>
-        </div>
-      )}
-      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
-        <code>{code}</code>
-      </pre>
     </div>
   )
 }
@@ -56,7 +42,7 @@ export function Page() {
             fully working project with all configuration pre-set.
           </p>
           <CodeBlock
-            lang="bash"
+            language="bash"
             code={`git clone https://github.com/your-org/doc-site-starter-kit.git my-docs
 cd my-docs`}
           />
@@ -70,7 +56,7 @@ cd my-docs`}
             Install all required packages using pnpm. The lockfile ensures you get exactly the same
             dependency versions as tested.
           </p>
-          <CodeBlock lang="bash" code="pnpm install" />
+          <CodeBlock language="bash" code="pnpm install" />
           <p className="text-sm text-gray-500">
             This installs Vike, React 19, Tailwind CSS v4, and all dev dependencies.
           </p>
@@ -81,7 +67,7 @@ cd my-docs`}
             Launch the Vite dev server with hot module replacement. Changes to pages, components,
             and styles are reflected instantly in the browser.
           </p>
-          <CodeBlock lang="bash" code="pnpm dev" />
+          <CodeBlock language="bash" code="pnpm dev" />
           <p className="text-sm text-gray-500 mb-4">
             Open <a href="http://localhost:3000" className="text-indigo-600 hover:underline">http://localhost:3000</a> in your browser.
           </p>
@@ -94,7 +80,7 @@ cd my-docs`}
             picks it up and maps it to a URL.
           </p>
           <CodeBlock
-            lang="tsx"
+            language="tsx"
             code={`// pages/my-page/+Page.tsx
 export function Page() {
   return (
@@ -118,7 +104,7 @@ export function Page() {
             new page to the navigation array under the appropriate section.
           </p>
           <CodeBlock
-            lang="tsx"
+            language="tsx"
             code={`const navigation = [
   {
     section: 'Guides',
@@ -137,8 +123,8 @@ export function Page() {
           <h2 className="font-semibold text-gray-900">Project structure overview</h2>
         </div>
         <div className="p-6">
-          <pre className="text-sm font-mono text-gray-700 leading-relaxed overflow-x-auto">
-            <code>{`doc-site-starter-kit/
+          <CodeBlock
+            code={`doc-site-starter-kit/
 ├── pages/              # Your documentation pages
 │   ├── index/
 │   │   └── +Page.tsx   # → /
@@ -156,8 +142,8 @@ export function Page() {
 ├── scripts/
 │   └── deploy.mjs      # Netlify deploy script
 ├── vite.config.ts
-└── tsconfig.json`}</code>
-          </pre>
+└── tsconfig.json`}
+          />
         </div>
       </div>
 

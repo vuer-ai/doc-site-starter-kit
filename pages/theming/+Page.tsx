@@ -1,17 +1,5 @@
 import React from 'react'
-
-function CodeBlock({ code, lang = 'css', filename }: { code: string; lang?: string; filename?: string }) {
-  return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden mb-6">
-      <div className="px-4 py-2 border-b border-gray-800 flex items-center">
-        <span className="text-xs text-gray-300 font-mono">{filename ?? lang}</span>
-      </div>
-      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
-        <code>{code}</code>
-      </pre>
-    </div>
-  )
-}
+import { CodeBlock } from '../../components/CodeBlock'
 
 const swatches = [
   { name: 'indigo-50',  hex: '#EEF2FF' },
@@ -89,7 +77,7 @@ module.exports = {
         </p>
         <CodeBlock
           filename="styles/global.css"
-          lang="css"
+          language="css"
           code={`@import "tailwindcss";
 
 @theme {
@@ -131,7 +119,7 @@ module.exports = {
         </p>
         <CodeBlock
           filename="styles/global.css"
-          lang="css"
+          language="css"
           code={`@import "tailwindcss";
 
 @theme {
@@ -160,7 +148,7 @@ module.exports = {
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Spacing and border-radius</h2>
         <CodeBlock
           filename="styles/global.css"
-          lang="css"
+          language="css"
           code={`@theme {
   /* Custom spacing scale additions */
   --spacing-18: 4.5rem;
@@ -186,7 +174,7 @@ module.exports = {
         </p>
         <CodeBlock
           filename="styles/global.css"
-          lang="css"
+          language="css"
           code={`@import "tailwindcss";
 
 /* Use class-based dark mode (add 'dark' class to <html>) */

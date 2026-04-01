@@ -1,4 +1,5 @@
 import React from 'react'
+import { CodeBlock } from '../../components/CodeBlock'
 
 function Badge({ label, color }: { label: string; color: string }) {
   const colors: Record<string, string> = {
@@ -48,9 +49,7 @@ function FunctionCard({
         </div>
       </div>
       <div className="px-5 py-4">
-        <div className="mb-4 rounded-lg bg-gray-900 p-3 overflow-x-auto">
-          <code className="text-xs font-mono text-gray-100">{signature}</code>
-        </div>
+        <CodeBlock code={signature} language="ts" />
         {params.length > 0 && (
           <div className="mb-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">Parameters</p>
@@ -71,9 +70,7 @@ function FunctionCard({
         </div>
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">Example</p>
-          <div className="rounded-lg bg-gray-900 p-3 overflow-x-auto">
-            <pre className="text-xs font-mono text-gray-100"><code>{example}</code></pre>
-          </div>
+          <CodeBlock code={example} language="tsx" />
         </div>
       </div>
     </div>

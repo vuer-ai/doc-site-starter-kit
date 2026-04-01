@@ -1,19 +1,5 @@
-import React, { useState } from 'react'
-
-function CodeBlock({ code, lang = 'bash' }: { code: string; lang?: string }) {
-  return (
-    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden mb-4">
-      {lang && (
-        <div className="px-4 py-2 border-b border-gray-800">
-          <span className="text-xs text-gray-400 font-mono">{lang}</span>
-        </div>
-      )}
-      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
-        <code>{code}</code>
-      </pre>
-    </div>
-  )
-}
+import React from 'react'
+import { CodeBlock } from '../../components/CodeBlock'
 
 export function Page() {
   return (
@@ -78,17 +64,17 @@ export function Page() {
             <span className="px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-xs font-bold">RECOMMENDED</span>
             pnpm
           </h3>
-          <CodeBlock lang="bash" code="pnpm install" />
+          <CodeBlock language="bash" code="pnpm install" />
         </div>
 
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">npm</h3>
-          <CodeBlock lang="bash" code="npm install" />
+          <CodeBlock language="bash" code="npm install" />
         </div>
 
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">yarn</h3>
-          <CodeBlock lang="bash" code="yarn install" />
+          <CodeBlock language="bash" code="yarn install" />
         </div>
       </section>
 
@@ -102,13 +88,13 @@ export function Page() {
 
         <h3 className="font-semibold text-gray-900 mb-3">Runtime dependencies</h3>
         <CodeBlock
-          lang="bash"
+          language="bash"
           code="pnpm add react react-dom vike vike-react"
         />
 
         <h3 className="font-semibold text-gray-900 mb-3">Dev dependencies</h3>
         <CodeBlock
-          lang="bash"
+          language="bash"
           code="pnpm add -D @types/react @types/react-dom @vitejs/plugin-react typescript vite @tailwindcss/vite tailwindcss"
         />
       </section>
@@ -119,12 +105,12 @@ export function Page() {
         <p className="text-gray-600 mb-4">
           After installing, run the development server to confirm everything is working:
         </p>
-        <CodeBlock lang="bash" code="pnpm dev" />
+        <CodeBlock language="bash" code="pnpm dev" />
         <p className="text-gray-600">
           You should see output similar to:
         </p>
         <CodeBlock
-          lang="text"
+          language="text"
           code={`  VITE v6.x.x  ready in 312 ms
 
   ➜  Local:   http://localhost:3000/
@@ -142,7 +128,7 @@ export function Page() {
             <p className="text-sm text-gray-600 mb-2">
               This usually means the vike package is not installed or your node_modules is corrupted.
             </p>
-            <CodeBlock lang="bash" code="rm -rf node_modules pnpm-lock.yaml && pnpm install" />
+            <CodeBlock language="bash" code="rm -rf node_modules pnpm-lock.yaml && pnpm install" />
           </div>
           <div className="p-4 rounded-lg border border-gray-200">
             <p className="font-semibold text-gray-900 mb-1">Tailwind styles not applying</p>
