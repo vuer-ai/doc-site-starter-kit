@@ -29,7 +29,7 @@ echo -e "${bold}📦 Doc Site Starter Kit — Quick Setup${reset}"
 echo ""
 
 while true; do
-  read -rp "$(echo -e "${cyan}?${reset}") Project name (used as directory & package name): " PROJECT_NAME
+  read -erp "$(echo -e "${cyan}?${reset}") Project name (used as directory & package name): " PROJECT_NAME
   if [[ -z "$PROJECT_NAME" ]]; then
     err "Project name is required. Please enter a name."
     continue
@@ -49,7 +49,7 @@ done
 
 # ── Step 2: Target domain (default: <project-name>.netlify.app) ──
 DEFAULT_DOMAIN="${PROJECT_NAME}.netlify.app"
-read -rp "$(echo -e "${cyan}?${reset}") Target domain [${DEFAULT_DOMAIN}]: " TARGET_DOMAIN
+read -erp "$(echo -e "${cyan}?${reset}") Target domain [${DEFAULT_DOMAIN}]: " TARGET_DOMAIN
 TARGET_DOMAIN="${TARGET_DOMAIN:-$DEFAULT_DOMAIN}"
 
 # ── Step 3: Download & extract ──
@@ -104,13 +104,13 @@ ok "Cleaned up."
 
 # ── Step 5: Netlify Site ID (default: N) ──
 echo ""
-read -rp "$(echo -e "${cyan}?${reset}") Do you have a Netlify site ID? (y/N): " HAS_SITE_ID
+read -erp "$(echo -e "${cyan}?${reset}") Do you have a Netlify site ID? (y/N): " HAS_SITE_ID
 HAS_SITE_ID="${HAS_SITE_ID:-N}"
 
 SITE_ID=""
 if [[ "$HAS_SITE_ID" =~ ^[Yy]$ ]]; then
   while true; do
-    read -rp "$(echo -e "${cyan}?${reset}") Enter your Netlify site ID: " SITE_ID
+    read -erp "$(echo -e "${cyan}?${reset}") Enter your Netlify site ID: " SITE_ID
     if [[ -z "$SITE_ID" ]]; then
       err "Site ID cannot be empty. Please enter your Netlify site ID."
       continue
@@ -147,7 +147,7 @@ warn "It's recommended to choose one, not both, to avoid duplicate deploys."
 echo ""
 
 while true; do
-  read -rp "$(echo -e "${cyan}?${reset}") Enter 1 or 2 [1]: " DEPLOY_CHOICE
+  read -erp "$(echo -e "${cyan}?${reset}") Enter 1 or 2 [1]: " DEPLOY_CHOICE
   DEPLOY_CHOICE="${DEPLOY_CHOICE:-1}"
   if [[ "$DEPLOY_CHOICE" == "1" || "$DEPLOY_CHOICE" == "2" ]]; then
     break
