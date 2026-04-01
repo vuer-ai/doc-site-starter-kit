@@ -75,6 +75,10 @@
   .hljs {
     border: none;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    scroll-margin-top: 5.5rem; /* clears sticky navbar (3.5rem) + comfortable gap */
+  }
 }
 
 /* Sidebar navigation links */
@@ -117,3 +121,30 @@
 .hljs-deletion                    { color: #e5534b; background: rgba(229,83,75,.12);  }
 .hljs-emphasis                    { font-style: italic; }
 .hljs-strong                      { font-weight: bold; }
+
+/* Heading anchor links */
+h1, h2, h3, h4, h5, h6 {
+  position: relative;
+}
+
+.heading-anchor {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  opacity: 0;
+  color: rgb(var(--color-text-muted));
+  text-decoration: none;
+  transition: opacity 120ms;
+  vertical-align: middle;
+}
+
+h1:hover .heading-anchor,
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+h4:hover .heading-anchor {
+  opacity: 1;
+}
+
+.heading-anchor:hover {
+  color: rgb(var(--color-primary));
+}
