@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar'
 import { DocFooter } from '../components/DocFooter'
 import { ThemeProvider } from '../components/ThemeContext'
 import { TOC } from '../components/TOC'
+import { Search } from '../components/Search'
 import '../styles/global.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -17,6 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         }}
       >
         <Navbar />
+        <Search />
         <div className="flex">
           <Sidebar />
           <div className="flex-1 min-w-0">

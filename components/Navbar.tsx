@@ -1,6 +1,7 @@
 import React from 'react'
-import { Sun, Moon, SunMoon } from 'lucide-react'
+import { Sun, Moon, SunMoon, Search as SearchIcon } from 'lucide-react'
 import { useTheme, type Theme } from './ThemeContext'
+import { openSearch } from './Search'
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
@@ -34,7 +35,29 @@ export function Navbar() {
         </span>
       </a>
 
-      <div className="flex-1" />
+      <button
+        onClick={openSearch}
+        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm flex-1 max-w-xs mx-4"
+        style={{
+          backgroundColor: 'rgb(var(--color-bg-secondary))',
+          border: '1px solid rgb(var(--color-border))',
+          color: 'rgb(var(--color-text-muted))',
+        }}
+      >
+        <SearchIcon size={14} />
+        <span className="flex-1 text-left">Search...</span>
+        <kbd
+          className="text-xs px-1.5 py-0.5 rounded"
+          style={{
+            backgroundColor: 'rgb(var(--color-bg))',
+            border: '1px solid rgb(var(--color-border))',
+          }}
+        >
+          ⌘K
+        </kbd>
+      </button>
+
+      <div className="flex-1 max-w-[1px]" />
 
       <div
         className="flex items-center gap-0.5 rounded-md p-0.5"
