@@ -22,6 +22,9 @@ export async function onRenderHtml(pageContext: any) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     ${themeScript}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>Doc Site Starter Kit</title>
   </head>
   <body>

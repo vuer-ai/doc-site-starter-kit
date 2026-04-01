@@ -5,23 +5,23 @@ const navigation = [
   {
     section: 'Introduction',
     items: [
-      { label: 'Overview', href: '/', icon: '🏠' },
-      { label: 'Getting Started', href: '/getting-started', icon: '🚀' },
-      { label: 'Installation', href: '/installation', icon: '📦' },
+      { label: 'Overview', href: '/' },
+      { label: 'Getting Started', href: '/getting-started' },
+      { label: 'Installation', href: '/installation' },
     ],
   },
   {
     section: 'Guides',
     items: [
-      { label: 'Configuration', href: '/configuration', icon: '⚙️' },
-      { label: 'Components', href: '/components', icon: '🧩' },
-      { label: 'Theming', href: '/theming', icon: '🎨' },
+      { label: 'Configuration', href: '/configuration' },
+      { label: 'Components', href: '/components' },
+      { label: 'Theming', href: '/theming' },
     ],
   },
   {
     section: 'Reference',
     items: [
-      { label: 'API Reference', href: '/api-reference', icon: '📖' },
+      { label: 'API Reference', href: '/api-reference' },
     ],
   },
 ]
@@ -32,17 +32,19 @@ export function Sidebar() {
 
   return (
     <aside
-      className="w-64 shrink-0 border-r min-h-[calc(100vh-3.5rem)] sticky top-14 overflow-y-auto hidden md:block"
+      className="w-56 shrink-0 border-r min-h-[calc(100vh-3.5rem)] sticky top-14 overflow-y-auto hidden md:block"
       style={{
         backgroundColor: 'rgb(var(--color-sidebar-bg))',
         borderColor: 'rgb(var(--color-sidebar-border))',
       }}
     >
-      {/* Nav */}
-      <nav className="px-3 py-4 space-y-6">
+      <nav className="px-3 py-5 space-y-5">
         {navigation.map((group) => (
           <div key={group.section}>
-            <p className="px-3 mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
+            <p
+              className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-wider"
+              style={{ color: 'rgb(var(--color-text-muted))' }}
+            >
               {group.section}
             </p>
             <ul className="space-y-0.5">
@@ -52,14 +54,8 @@ export function Sidebar() {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className={[
-                        'flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors',
-                        isActive
-                          ? 'bg-indigo-50 text-indigo-700 font-medium'
-                          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
-                      ].join(' ')}
+                      className={`sidebar-link${isActive ? ' active' : ''}`}
                     >
-                      <span className="text-base leading-none">{item.icon}</span>
                       {item.label}
                     </a>
                   </li>
@@ -69,14 +65,6 @@ export function Sidebar() {
           </div>
         ))}
       </nav>
-
-      {/* Footer */}
-      <div
-        className="px-6 py-4 border-t mt-auto"
-        style={{ borderColor: 'rgb(var(--color-sidebar-border))' }}
-      >
-        <p className="text-xs text-gray-400">v0.1.0</p>
-      </div>
     </aside>
   )
 }
