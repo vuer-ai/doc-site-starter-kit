@@ -1,34 +1,15 @@
 import React from 'react'
 import { usePageContext } from 'vike-react/usePageContext'
+import { pages } from '../lib/navigation'
 
-const navigation = [
-  {
-    section: 'Introduction',
-    items: [
-      { label: 'Overview', href: '/' },
-      { label: 'Getting Started', href: '/getting-started' },
-      { label: 'Installation', href: '/installation' },
-    ],
-  },
-  {
-    section: 'Guides',
-    items: [
-      { label: 'Configuration', href: '/configuration' },
-      { label: 'Components', href: '/components' },
-      { label: 'Theming', href: '/theming' },
-    ],
-  },
-  {
-    section: 'Reference',
-    items: [
-      { label: 'API Reference', href: '/api-reference' },
-    ],
-  },
-]
+// Group pages by section for sidebar rendering
+const sections = pages.reduce<Record<string, typeof pages>>((acc, page) => {
+  ;(acc[page.section] ??= []).push(page)
+  return acc
+}, {})
 
 export function Sidebar() {
-  const pageContext = usePageContext()
-  const currentPath = pageContext.urlPathname
+  const { urlPathname } = usePageContext()
 
   return (
     <aside
@@ -38,29 +19,26 @@ export function Sidebar() {
         borderColor: 'rgb(var(--color-sidebar-border))',
       }}
     >
-      <nav className="px-3 py-5 space-y-5">
-        {navigation.map((group) => (
-          <div key={group.section}>
+      <nav className="px-3 space-y-5">
+        {Object.entries(sections).map(([section, items]) => (
+          <div key={section}>
             <p
               className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-wider"
               style={{ color: 'rgb(var(--color-text-muted))' }}
             >
-              {group.section}
+              {section}
             </p>
             <ul className="space-y-0.5">
-              {group.items.map((item) => {
-                const isActive = currentPath === item.href
-                return (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className={`sidebar-link${isActive ? ' active' : ''}`}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                )
-              })}
+              {items.map(item => (
+                <li key={item.path}>
+                  <a
+                    href={item.path}
+                    className={`sidebar-link${urlPathname === item.path ? ' active' : ''}`}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         ))}

@@ -1,7 +1,7 @@
 import React from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Sidebar } from '../components/Sidebar'
 import { Navbar } from '../components/Navbar'
+import { DocFooter } from '../components/DocFooter'
 import { ThemeProvider } from '../components/ThemeContext'
 import { TOC } from '../components/TOC'
 import '../styles/global.css'
@@ -34,53 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        {/* Frosted glass footer — fixed, starts after sidebar on md+ */}
-        <footer
-          className="fixed bottom-0 left-0 md:left-56 right-0 z-40"
-          style={{
-            height: '150px',
-            backgroundColor: 'var(--color-bg-fog)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            borderTop: '1px solid rgb(var(--color-border) / 0.5)',
-          }}
-        >
-          {/* mirror main layout: flex-1 content + TOC spacer */}
-          <div className="h-full flex">
-            <div className="flex-1 flex items-center px-8">
-              <div className="max-w-2xl w-full mx-auto flex items-center justify-between">
-                <button
-                  className="flex items-center gap-2 px-5 rounded-lg text-sm font-medium transition-colors"
-                  style={{
-                    height: '75px',
-                    color: 'rgb(var(--color-text-muted))',
-                    backgroundColor: 'rgb(var(--color-bg-secondary))',
-                  }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))' }}
-                >
-                  <ChevronLeft size={15} />
-                  Previous
-                </button>
-                <button
-                  className="flex items-center gap-2 px-5 rounded-lg text-sm font-medium transition-colors"
-                  style={{
-                    height: '75px',
-                    color: 'rgb(var(--color-text-muted))',
-                    backgroundColor: 'rgb(var(--color-bg-secondary))',
-                  }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))' }}
-                >
-                  Next
-                  <ChevronRight size={15} />
-                </button>
-              </div>
-            </div>
-            {/* TOC-width spacer so buttons align with main text column */}
-            <div className="hidden lg:block w-56 shrink-0" />
-          </div>
-        </footer>
+        <DocFooter />
       </div>
     </ThemeProvider>
   )
