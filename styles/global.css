@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: 99 102 241;
+    --color-sidebar-bg: 249 250 251;
+    --color-sidebar-border: 229 231 235;
+  }
+
+  html {
+    @apply antialiased;
+  }
+}

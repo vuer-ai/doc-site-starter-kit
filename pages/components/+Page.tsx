@@ -1,0 +1,256 @@
+import React from 'react'
+
+function CodeBlock({ code, lang = 'tsx', filename }: { code: string; lang?: string; filename?: string }) {
+  return (
+    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden mb-6">
+      <div className="px-4 py-2 border-b border-gray-800 flex items-center">
+        <span className="text-xs text-gray-300 font-mono">{filename ?? lang}</span>
+      </div>
+      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
+        <code>{code}</code>
+      </pre>
+    </div>
+  )
+}
+
+function ComponentSection({
+  title,
+  description,
+  children,
+  code,
+}: {
+  title: string
+  description: string
+  children: React.ReactNode
+  code: string
+}) {
+  return (
+    <div className="mb-14">
+      <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
+      <p className="text-gray-500 mb-6">{description}</p>
+      <div className="rounded-xl border border-gray-200 overflow-hidden mb-4">
+        <div className="px-4 py-2.5 border-b border-gray-200 bg-gray-50">
+          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Preview</span>
+        </div>
+        <div className="p-6 bg-white">{children}</div>
+      </div>
+      <CodeBlock lang="tsx" code={code} />
+    </div>
+  )
+}
+
+export function Page() {
+  return (
+    <div>
+      <div className="mb-10">
+        <p className="text-sm font-medium text-indigo-600 mb-2 uppercase tracking-wide">Guides</p>
+        <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-4">Components</h1>
+        <p className="text-lg text-gray-500 leading-relaxed">
+          The starter kit ships with a small set of composable components for building polished
+          documentation pages. All components are plain React with Tailwind CSS — no component
+          library dependencies required.
+        </p>
+      </div>
+
+      {/* Callout */}
+      <ComponentSection
+        title="Callout"
+        description="Use callouts to highlight important information, warnings, or tips to the reader."
+        code={`function Callout({ type = 'info', children }: { type?: 'info' | 'warning' | 'danger'; children: React.ReactNode }) {
+  const styles = {
+    info:    'bg-blue-50 border-blue-200 text-blue-900',
+    warning: 'bg-amber-50 border-amber-200 text-amber-900',
+    danger:  'bg-red-50 border-red-200 text-red-900',
+  }
+  return (
+    <div className={\`p-4 rounded-lg border text-sm \${styles[type]}\`}>
+      {children}
+    </div>
+  )
+}`}
+      >
+        <div className="space-y-3">
+          <div className="p-4 rounded-lg border bg-blue-50 border-blue-200 text-blue-900 text-sm">
+            <strong>Info:</strong> This is an informational callout. Use it for helpful context.
+          </div>
+          <div className="p-4 rounded-lg border bg-amber-50 border-amber-200 text-amber-900 text-sm">
+            <strong>Warning:</strong> Pay attention to this before proceeding.
+          </div>
+          <div className="p-4 rounded-lg border bg-red-50 border-red-200 text-red-900 text-sm">
+            <strong>Danger:</strong> This action is destructive and cannot be undone.
+          </div>
+        </div>
+      </ComponentSection>
+
+      {/* Code block */}
+      <ComponentSection
+        title="CodeBlock"
+        description="Syntax-highlighted code blocks with a filename label and language badge."
+        code={`function CodeBlock({ code, lang = 'ts', filename }: { code: string; lang?: string; filename?: string }) {
+  return (
+    <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden">
+      {filename && (
+        <div className="px-4 py-2 border-b border-gray-800">
+          <span className="text-xs text-gray-300 font-mono">{filename}</span>
+        </div>
+      )}
+      <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
+        <code>{code}</code>
+      </pre>
+    </div>
+  )
+}`}
+      >
+        <div className="rounded-xl bg-gray-900 border border-gray-800 overflow-hidden">
+          <div className="px-4 py-2 border-b border-gray-800">
+            <span className="text-xs text-gray-300 font-mono">vite.config.ts</span>
+          </div>
+          <pre className="p-4 overflow-x-auto text-sm text-gray-100 font-mono">
+            <code>{`import { defineConfig } from 'vite'
+import vike from 'vike/plugin'
+
+export default defineConfig({
+  plugins: [vike({ prerender: true })],
+})`}</code>
+          </pre>
+        </div>
+      </ComponentSection>
+
+      {/* Badge */}
+      <ComponentSection
+        title="Badge"
+        description="Small inline labels for status indicators, version tags, or category labels."
+        code={`function Badge({ label, variant = 'default' }: { label: string; variant?: 'default' | 'success' | 'warning' | 'new' }) {
+  const styles = {
+    default: 'bg-gray-100 text-gray-600',
+    success: 'bg-green-100 text-green-700',
+    warning: 'bg-amber-100 text-amber-700',
+    new:     'bg-indigo-100 text-indigo-700',
+  }
+  return (
+    <span className={\`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium \${styles[variant]}\`}>
+      {label}
+    </span>
+  )
+}`}
+      >
+        <div className="flex flex-wrap gap-2">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">Default</span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Stable</span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">Beta</span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700">New</span>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">Deprecated</span>
+        </div>
+      </ComponentSection>
+
+      {/* Steps */}
+      <ComponentSection
+        title="Step list"
+        description="Numbered steps for sequential instructions, tutorials, and setup guides."
+        code={`function Steps({ children }: { children: React.ReactNode }) {
+  return <ol className="space-y-6">{children}</ol>
+}
+
+function Step({ number, title, children }: { number: number; title: string; children: React.ReactNode }) {
+  return (
+    <li className="flex gap-4">
+      <div className="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">
+        {number}
+      </div>
+      <div>
+        <p className="font-semibold text-gray-900 mb-1">{title}</p>
+        {children}
+      </div>
+    </li>
+  )
+}`}
+      >
+        <ol className="space-y-5">
+          {[
+            { title: 'Clone the repository', body: 'Run git clone to get a local copy of the starter kit.' },
+            { title: 'Install dependencies', body: 'Run pnpm install to set up all required packages.' },
+            { title: 'Start the dev server', body: 'Run pnpm dev and open localhost:3000 in your browser.' },
+          ].map((step, i) => (
+            <li key={i} className="flex gap-4">
+              <div className="shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                {i + 1}
+              </div>
+              <div>
+                <p className="font-semibold text-gray-900 mb-0.5">{step.title}</p>
+                <p className="text-sm text-gray-500">{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </ComponentSection>
+
+      {/* Property table */}
+      <ComponentSection
+        title="Props table"
+        description="Document component props or function parameters in a structured table."
+        code={`function PropsTable({ rows }: { rows: { name: string; type: string; required: boolean; description: string }[] }) {
+  return (
+    <div className="rounded-xl border border-gray-200 overflow-hidden">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="bg-gray-50 border-b border-gray-200">
+            <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Prop</th>
+            <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Type</th>
+            <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Required</th>
+            <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Description</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-100">
+          {rows.map(row => (
+            <tr key={row.name}>
+              <td className="px-4 py-2.5 font-mono text-indigo-600">{row.name}</td>
+              <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{row.type}</td>
+              <td className="px-4 py-2.5 text-xs">{row.required ? '✓' : '—'}</td>
+              <td className="px-4 py-2.5 text-gray-600">{row.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}`}
+      >
+        <div className="rounded-xl border border-gray-200 overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-200">
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Prop</th>
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Type</th>
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Required</th>
+                <th className="text-left px-4 py-2.5 font-semibold text-gray-700">Description</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {[
+                { name: 'children', type: 'React.ReactNode', req: true, desc: 'Content rendered inside the component.' },
+                { name: 'className', type: 'string', req: false, desc: 'Additional CSS classes to merge.' },
+                { name: 'variant', type: "'default' | 'ghost'", req: false, desc: 'Visual style variant.' },
+              ].map((r) => (
+                <tr key={r.name}>
+                  <td className="px-4 py-2.5 font-mono text-indigo-600 text-xs">{r.name}</td>
+                  <td className="px-4 py-2.5 font-mono text-xs text-gray-500">{r.type}</td>
+                  <td className="px-4 py-2.5 text-xs text-center">{r.req ? '✓' : '—'}</td>
+                  <td className="px-4 py-2.5 text-gray-600 text-sm">{r.desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </ComponentSection>
+
+      <div className="flex items-center justify-between pt-8 border-t border-gray-200">
+        <a href="/configuration" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
+          ← Configuration
+        </a>
+        <a href="/theming" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
+          Theming →
+        </a>
+      </div>
+    </div>
+  )
+}
