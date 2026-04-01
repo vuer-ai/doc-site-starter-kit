@@ -27,7 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   {children}
                 </div>
               </main>
-              <div className="hidden lg:block w-56 shrink-0 px-4 py-10">
+              <div className="hidden lg:block w-56 shrink-0 px-4 pt-12 pb-10">
                 <TOC />
               </div>
             </div>
