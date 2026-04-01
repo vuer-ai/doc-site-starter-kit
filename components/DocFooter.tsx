@@ -8,7 +8,7 @@ export function DocFooter() {
   const { prev, next } = getAdjacentPages(urlPathname)
 
   const btnStyle: React.CSSProperties = {
-    height: '50px',
+    padding: '16px',
     color: 'rgb(var(--color-text-muted))',
     backgroundColor: 'transparent',
   }
@@ -31,7 +31,7 @@ export function DocFooter() {
             {prev ? (
               <a
                 href={prev.path}
-                className="w-48 flex items-center justify-start px-5 rounded-lg text-sm font-medium transition-colors no-underline"
+                className="w-48 flex items-center justify-start rounded-xl text-sm font-medium transition-colors no-underline"
                 style={btnStyle}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'var(--color-hover)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
@@ -49,7 +49,7 @@ export function DocFooter() {
             {next ? (
               <a
                 href={next.path}
-                className="w-48 flex items-center justify-end px-5 rounded-lg text-sm font-medium transition-colors no-underline"
+                className="w-48 flex items-center justify-end rounded-xl text-sm font-medium transition-colors no-underline"
                 style={btnStyle}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'var(--color-hover)' }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}

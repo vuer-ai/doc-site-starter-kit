@@ -4,15 +4,23 @@ export interface PageMeta {
   section: string
 }
 
-export const pages: PageMeta[] = [
-  { path: '/',               title: 'Overview',        section: 'Introduction' },
-  { path: '/getting-started', title: 'Getting Started', section: 'Introduction' },
-  { path: '/installation',   title: 'Installation',    section: 'Introduction' },
-  { path: '/configuration',  title: 'Configuration',   section: 'Guides'       },
-  { path: '/components',     title: 'Components',      section: 'Guides'       },
-  { path: '/theming',        title: 'Theming',         section: 'Guides'       },
-  { path: '/api-reference',  title: 'API Reference',   section: 'Reference'    },
-]
+const modules = import.meta.glob<{ title: string; section: string; order: number }>(
+  '../pages/**/content.mdx',
+  { eager: true }
+)
+
+export const pages: PageMeta[] = Object.entries(modules)
+  .map(([filePath, mod]) => {
+    const dir = filePath.replace('../pages/', '').replace('/content.mdx', '')
+    return {
+      path: dir === 'index' ? '/' : `/${dir}`,
+      title: mod.title ?? dir,
+      section: mod.section ?? '',
+      order: mod.order ?? 99,
+    }
+  })
+  .sort((a, b) => (a as any).order - (b as any).order)
+  .map(({ path, title, section }) => ({ path, title, section }))
 
 export function getAdjacentPages(path: string) {
   const idx = pages.findIndex(p => p.path === path)
