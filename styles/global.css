@@ -59,6 +59,22 @@
   pre {
     border: none;
   }
+
+  table, thead, tbody, tfoot, tr, th, td {
+    border: none;
+  }
+
+  code {
+    border: none;
+  }
+
+  blockquote {
+    border: none;
+  }
+
+  .hljs {
+    border: none;
+  }
 }
 
 /* Sidebar navigation links */
