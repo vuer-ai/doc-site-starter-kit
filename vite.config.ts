@@ -9,4 +9,8 @@ export default defineConfig({
     react(),
     vike({ prerender: true }),
   ],
+  server: {
+    port: 3010,
+    strictPort: false,
+  },
 })
