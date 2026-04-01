@@ -8,16 +8,16 @@ export function DocFooter() {
   const { prev, next } = getAdjacentPages(urlPathname)
 
   const btnStyle: React.CSSProperties = {
-    height: '75px',
+    height: '50px',
     color: 'rgb(var(--color-text-muted))',
-    backgroundColor: 'rgb(var(--color-bg-secondary))',
+    backgroundColor: 'transparent',
   }
 
   return (
     <footer
       className="fixed bottom-0 left-0 md:left-56 right-0 z-40"
       style={{
-        height: '150px',
+        height: '100px',
         backgroundColor: 'var(--color-bg-fog)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -31,10 +31,10 @@ export function DocFooter() {
             {prev ? (
               <a
                 href={prev.path}
-                className="flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline"
+                className="w-48 flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline"
                 style={btnStyle}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))' }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'rgb(var(--color-bg-secondary))' }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
               >
                 <ChevronLeft size={15} className="shrink-0" />
                 <span className="flex flex-col">
@@ -47,10 +47,10 @@ export function DocFooter() {
             {next ? (
               <a
                 href={next.path}
-                className="flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline text-right"
+                className="w-48 flex items-center gap-3 px-5 rounded-lg text-sm font-medium transition-colors no-underline text-right"
                 style={btnStyle}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text))' }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgb(var(--color-text-muted))' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text))'; el.style.backgroundColor = 'rgb(var(--color-bg-secondary))' }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = 'rgb(var(--color-text-muted))'; el.style.backgroundColor = 'transparent' }}
               >
                 <span className="flex flex-col items-end">
                   <span className="text-xs opacity-60 font-normal mb-0.5">Next</span>
