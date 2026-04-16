@@ -4,8 +4,6 @@ section: Guides
 order: 6
 ---
 
-import { CodeBlock } from '../../components/CodeBlock'
-
 export const swatches = [
   { name: 'indigo-50',  hex: '#EEF2FF' },
   { name: 'indigo-100', hex: '#E0E7FF' },
@@ -23,7 +21,7 @@ the CSS custom properties ecosystem.
 
 ## How Tailwind v4 theming works
 
-In Tailwind v4, the <code className="font-mono text-indigo-600">@theme</code> directive defines your design
+In Tailwind v4, the `@theme` directive defines your design
 tokens as CSS custom properties. Tailwind reads these properties and automatically generates
 the corresponding utility classes. No JavaScript configuration is needed.
 
@@ -61,14 +59,11 @@ module.exports = {
 
 ## Customising your colour palette
 
-Replace or extend the default Tailwind palette by defining colour tokens in the <code className="font-mono text-indigo-600">@theme</code> block. Use any valid CSS colour format —
-hex, RGB, HSL, or the modern <code className="font-mono text-indigo-600">oklch()</code> space for
+Replace or extend the default Tailwind palette by defining colour tokens in the `@theme` block. Use any valid CSS colour format —
+hex, RGB, HSL, or the modern `oklch()` space for
 perceptually uniform colours.
 
-<CodeBlock
-  filename="styles/global.css"
-  language="css"
-  code={`@import "tailwindcss";
+<CodeBlock filename="styles/global.css" language="css" code={`@import "tailwindcss";
 
 @theme {
   /* Override a default colour */
@@ -82,8 +77,7 @@ perceptually uniform colours.
   /* Semantic colours */
   --color-success: oklch(65% 0.18 145);
   --color-danger:  oklch(60% 0.22  25);
-}`}
-/>
+}`} />
 
 <div className="grid grid-cols-4 md:grid-cols-8 gap-2 mb-4">
   {swatches.map((swatch) => (
@@ -96,16 +90,16 @@ perceptually uniform colours.
     </div>
   ))}
 </div>
-<p className="text-xs text-gray-400">Default indigo palette included with Tailwind v4.</p>
+
+Default indigo palette included with Tailwind v4.
 
 ## Typography tokens
 
-Override font families, sizes, weights, and line-heights using the same <code className="font-mono text-indigo-600">@theme</code> approach.
+Override font families, sizes, weights, and line-heights using the same `@theme` approach.
 
-<CodeBlock
-  filename="styles/global.css"
-  language="css"
-  code={`@import "tailwindcss";
+```css
+/* styles/global.css */
+@import "tailwindcss";
 
 @theme {
   /* Font families */
@@ -119,18 +113,16 @@ Override font families, sizes, weights, and line-heights using the same <code cl
 
   /* Line heights */
   --leading-tighter: 1.15;
-}`}
-/>
+}
+```
 
-After defining <code className="font-mono text-indigo-600">--font-sans</code>, use it as <code className="font-mono text-indigo-600">font-sans</code> in your Tailwind class names. The
+After defining `--font-sans`, use it as `font-sans` in your Tailwind class names. The
 same applies to all other token categories.
 
 ## Spacing and border-radius
 
-<CodeBlock
-  filename="styles/global.css"
-  language="css"
-  code={`@theme {
+```css
+@theme {
   /* Custom spacing scale additions */
   --spacing-18: 4.5rem;
   --spacing-22: 5.5rem;
@@ -142,17 +134,15 @@ same applies to all other token categories.
   --radius-xl:  1rem;
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
-}`}
-/>
+}
+```
 
 ## Dark mode
 
-Tailwind v4 supports dark mode via the <code className="font-mono text-indigo-600">dark:</code> variant. Configure the strategy in your CSS:
+Tailwind v4 supports dark mode via the `dark:` variant. Configure the strategy in your CSS:
 
-<CodeBlock
-  filename="styles/global.css"
-  language="css"
-  code={`@import "tailwindcss";
+```css
+@import "tailwindcss";
 
 /* Use class-based dark mode (add 'dark' class to <html>) */
 @variant dark (&:where(.dark, .dark *));
@@ -170,19 +160,19 @@ Tailwind v4 supports dark mode via the <code className="font-mono text-indigo-60
 }
 
 /* Usage in components: */
-/* <div class="bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100"> */`}
-/>
+/* <div class="bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100"> */
+```
 
-<div className="p-4 rounded-xl bg-blue-50 border border-blue-100 text-sm text-blue-800">
-  To toggle dark mode, add or remove the <code className="font-mono">dark</code> class on the{' '}
-  <code className="font-mono">&lt;html&gt;</code> element. You can do this with a small React hook
-  that reads from <code className="font-mono">localStorage</code> or the OS preference via{' '}
-  <code className="font-mono">window.matchMedia('(prefers-color-scheme: dark)')</code>.
-</div>
+<Callout type="info">
+  To toggle dark mode, add or remove the `dark` class on the
+  `<html>` element. You can do this with a small React hook
+  that reads from `localStorage` or the OS preference via
+  `window.matchMedia('(prefers-color-scheme: dark)')`.
+</Callout>
 
 ## CSS layers
 
-Tailwind v4 uses native CSS <code className="font-mono text-indigo-600">@layer</code> for cascade
+Tailwind v4 uses native CSS `@layer` for cascade
 control. The three built-in layers are:
 
 <div className="rounded-xl border border-gray-200 overflow-hidden mb-6">

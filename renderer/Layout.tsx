@@ -1,5 +1,7 @@
 import React from 'react'
 import { usePageContext } from 'vike-react/usePageContext'
+import { MDXProvider } from '@mdx-js/react'
+import { mdxComponents } from '../components/mdx-components'
 import { Sidebar } from '../components/Sidebar'
 import { Navbar } from '../components/Navbar'
 import { DocFooter } from '../components/DocFooter'
@@ -33,6 +35,7 @@ function PageHeader() {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
+    <MDXProvider components={mdxComponents}>
     <ThemeProvider>
       <div
         className="min-h-screen"
@@ -64,5 +67,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <DocFooter />
       </div>
     </ThemeProvider>
+    </MDXProvider>
   )
 }

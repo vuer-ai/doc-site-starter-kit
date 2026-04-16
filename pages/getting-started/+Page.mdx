@@ -4,112 +4,84 @@ section: Introduction
 order: 2
 ---
 
-import { CodeBlock } from '../../components/CodeBlock'
+<Callout type="warning">
+  **Prerequisites:** You need Node.js 20+ and pnpm 9+ installed on your machine.
+  If you don't have pnpm, run `npm install -g pnpm` first.
+</Callout>
 
-export function Step({ number, title, children }) {
-  return (
-    <div className="flex gap-5 mb-10">
-      <div className="shrink-0 w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-bold mt-0.5">
-        {number}
-      </div>
-      <div className="flex-1 min-w-0">
-        <h3 className="text-lg font-semibold text-gray-900 mb-3">{title}</h3>
-        {children}
-      </div>
-    </div>
-  )
-}
+<Step number={1} title="Clone or use the starter kit">
+  The fastest way to get started is to clone the repository directly. This gives you a
+  fully working project with all configuration pre-set.
 
-<div className="mb-10">
-  <p className="text-sm font-medium text-indigo-600 mb-2 uppercase tracking-wide">Introduction</p>
-  <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-4">Getting Started</h1>
-  <p className="text-lg text-gray-500 leading-relaxed">
-    Get your documentation site up and running in under five minutes. This guide walks you
-    through cloning the starter kit, installing dependencies, and launching the development
-    server.
-  </p>
-</div>
+  <CodeBlock
+    language="bash"
+    code={`git clone https://github.com/your-org/doc-site-starter-kit.git my-docs\ncd my-docs`}
+  />
 
-<div className="mb-10 p-4 rounded-xl bg-amber-50 border border-amber-200">
-  <p className="text-sm text-amber-800">
-    <strong>Prerequisites:</strong> You need Node.js 20+ and pnpm 9+ installed on your machine.
-    If you don't have pnpm, run <code className="font-mono bg-amber-100 px-1 rounded">npm install -g pnpm</code> first.
-  </p>
-</div>
+  Replace `my-docs` with your project name.
+</Step>
 
-<div className="mb-12">
-  <Step number={1} title="Clone or use the starter kit">
-    <p className="text-gray-600 mb-4">
-      The fastest way to get started is to clone the repository directly. This gives you a
-      fully working project with all configuration pre-set.
-    </p>
-    <CodeBlock
-      language="bash"
-      code={`git clone https://github.com/your-org/doc-site-starter-kit.git my-docs\ncd my-docs`}
-    />
-    <p className="text-sm text-gray-500">
-      Replace <code className="font-mono text-indigo-600">my-docs</code> with your project name.
-    </p>
-  </Step>
+<Step number={2} title="Install dependencies">
+  Install all required packages using pnpm. The lockfile ensures you get exactly the same
+  dependency versions as tested.
 
-  <Step number={2} title="Install dependencies">
-    <p className="text-gray-600 mb-4">
-      Install all required packages using pnpm. The lockfile ensures you get exactly the same
-      dependency versions as tested.
-    </p>
-    <CodeBlock language="bash" code="pnpm install" />
-    <p className="text-sm text-gray-500">
-      This installs Vike, React 19, Tailwind CSS v4, and all dev dependencies.
-    </p>
-  </Step>
+  <CodeBlock language="bash" code="pnpm install" />
 
-  <Step number={3} title="Start the development server">
-    <p className="text-gray-600 mb-4">
-      Launch the Vite dev server with hot module replacement. Changes to pages, components,
-      and styles are reflected instantly in the browser.
-    </p>
-    <CodeBlock language="bash" code="pnpm dev" />
-    <p className="text-sm text-gray-500 mb-4">
-      Open <a href="http://localhost:3000" className="text-indigo-600 hover:underline">http://localhost:3000</a> in your browser.
-    </p>
-  </Step>
+  This installs Vike, React 19, Tailwind CSS v4, and all dev dependencies.
+</Step>
 
-  <Step number={4} title="Add your first page">
-    <p className="text-gray-600 mb-4">
-      Create a new directory under <code className="font-mono text-indigo-600">pages/</code> with
-      a <code className="font-mono text-indigo-600">+Page.tsx</code> file. Vike automatically
-      picks it up and maps it to a URL.
-    </p>
-    <CodeBlock
-      language="tsx"
-      code={`// pages/my-page/+Page.tsx\nexport function Page() {\n  return (\n    <div>\n      <h1>My New Page</h1>\n      <p>This page is now available at /my-page</p>\n    </div>\n  )\n}`}
-    />
-    <p className="text-gray-600 mb-4">
-      The page is automatically wrapped in the <code className="font-mono text-indigo-600">Layout</code> component
-      defined in <code className="font-mono text-indigo-600">renderer/Layout.tsx</code>, so the sidebar
-      and base styles are applied for you.
-    </p>
-  </Step>
+<Step number={3} title="Start the development server">
+  Launch the Vite dev server with hot module replacement. Changes to pages, components,
+  and styles are reflected instantly in the browser.
 
-  <Step number={5} title="Add your page to the sidebar">
-    <p className="text-gray-600 mb-4">
-      Open <code className="font-mono text-indigo-600">components/Sidebar.tsx</code> and add your
-      new page to the navigation array under the appropriate section.
-    </p>
-    <CodeBlock
-      language="tsx"
-      code={`const navigation = [\n  {\n    section: 'Guides',\n    items: [\n      // ... existing items\n      { label: 'My Page', href: '/my-page', icon: '✨' },\n    ],\n  },\n]`}
-    />
-  </Step>
-</div>
+  <CodeBlock language="bash" code="pnpm dev" />
 
-<div className="rounded-xl border border-gray-200 overflow-hidden mb-10">
-  <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-    <h2 className="font-semibold text-gray-900">Project structure overview</h2>
-  </div>
-  <div className="p-6">
-    <CodeBlock
-      code={`doc-site-starter-kit/\n├── pages/              # Your documentation pages\n│   ├── index/\n│   │   └── +Page.tsx   # → /\n│   └── my-page/\n│       └── +Page.tsx   # → /my-page\n├── renderer/           # Vike SSR/hydration hooks\n│   ├── +config.ts\n│   ├── +onRenderHtml.tsx\n│   ├── +onRenderClient.tsx\n│   └── Layout.tsx\n├── components/         # Shared UI components\n│   └── Sidebar.tsx\n├── styles/\n│   └── global.css      # Tailwind v4 CSS entry\n├── scripts/\n│   └── deploy.mjs      # Netlify deploy script\n├── vite.config.ts\n└── tsconfig.json`}
-    />
-  </div>
-</div>
+  Open [http://localhost:3000](http://localhost:3000) in your browser.
+</Step>
+
+<Step number={4} title="Add your first page">
+  Create a new directory under `pages/` with a `+Page.tsx` file. Vike automatically
+  picks it up and maps it to a URL.
+
+  <CodeBlock
+    language="tsx"
+    code={`// pages/my-page/+Page.tsx\nexport function Page() {\n  return (\n    <div>\n      <h1>My New Page</h1>\n      <p>This page is now available at /my-page</p>\n    </div>\n  )\n}`}
+  />
+
+  The page is automatically wrapped in the `Layout` component defined in
+  `renderer/Layout.tsx`, so the sidebar and base styles are applied for you.
+</Step>
+
+<Step number={5} title="Add your page to the sidebar">
+  Open `components/Sidebar.tsx` and add your new page to the navigation array
+  under the appropriate section.
+
+  <CodeBlock
+    language="tsx"
+    code={`const navigation = [\n  {\n    section: 'Guides',\n    items: [\n      // ... existing items\n      { label: 'My Page', href: '/my-page', icon: '✨' },\n    ],\n  },\n]`}
+  />
+</Step>
+
+## Project structure overview
+
+```
+doc-site-starter-kit/
+├── pages/              # Your documentation pages
+│   ├── index/
+│   │   └── +Page.tsx   # → /
+│   └── my-page/
+│       └── +Page.tsx   # → /my-page
+├── renderer/           # Vike SSR/hydration hooks
+│   ├── +config.ts
+│   ├── +onRenderHtml.tsx
+│   ├── +onRenderClient.tsx
+│   └── Layout.tsx
+├── components/         # Shared UI components
+│   └── Sidebar.tsx
+├── styles/
+│   └── global.css      # Tailwind v4 CSS entry
+├── scripts/
+│   └── deploy.mjs      # Netlify deploy script
+├── vite.config.ts
+└── tsconfig.json
+```

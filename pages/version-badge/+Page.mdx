@@ -4,18 +4,17 @@ section: Components
 order: 5.5
 ---
 
-import { CodeBlock } from '../../components/CodeBlock'
 import { PackageBadge, VersionBadge } from '../../components/VersionBadge'
 
 The `VersionBadge` and `PackageBadge` components display package name, version, and git hash information in a compact inline badge. They are designed for use within this documentation framework itself.
 
-<div className="p-4 rounded-xl border text-sm" style={{ backgroundColor: 'rgb(var(--color-primary-muted))', borderColor: 'rgb(var(--color-primary) / 0.2)', color: 'rgb(var(--color-text))' }}>
-  <strong>Important:</strong> These components are part of the doc-site framework's internal tooling.
-  Libraries documented by this site should <strong>not</strong> depend on or inherit from these badge
+<Callout type="info">
+  **Important:** These components are part of the doc-site framework's internal tooling.
+  Libraries documented by this site should **not** depend on or inherit from these badge
   components. The dependency flows one way only: the doc site depends on the library — never the reverse.
-  Use this component as a <strong>reference implementation</strong> if you need similar functionality
+  Use this component as a **reference implementation** if you need similar functionality
   in your own project.
-</div>
+</Callout>
 
 ## Preview
 
@@ -46,19 +45,34 @@ There are two components: `PackageBadge` (low-level, explicit props) and `Versio
 
 Pass explicit values for full control:
 
-<CodeBlock
-  language="tsx"
-  code={`import { PackageBadge } from '../components/VersionBadge'\n\n<PackageBadge\n  packageName="my-lib"\n  packageFullName="@org/my-lib"\n  versionText="v1.2.3"\n  gitHash="a1b2c3d"\n  linkable\n/>`}
+```tsx
+import { PackageBadge } from '../components/VersionBadge'
+
+<PackageBadge
+  packageName="my-lib"
+  packageFullName="@org/my-lib"
+  versionText="v1.2.3"
+  gitHash="a1b2c3d"
+  linkable
 />
+```
 
 ### VersionBadge
 
 Toggle display flags — values are read automatically from build-time constants or `package.json`:
 
-<CodeBlock
-  language="tsx"
-  code={`import { VersionBadge } from '../components/VersionBadge'\n\n{/* Show package name + version with "v" prefix */}\n<VersionBadge package version prefix />\n\n{/* Version only, no link */}\n<VersionBadge version />\n\n{/* Everything: package, version, git hash, all clickable */}\n<VersionBadge package version prefix hash linkable />`}
-/>
+```tsx
+import { VersionBadge } from '../components/VersionBadge'
+
+{/* Show package name + version with "v" prefix */}
+<VersionBadge package version prefix />
+
+{/* Version only, no link */}
+<VersionBadge version />
+
+{/* Everything: package, version, git hash, all clickable */}
+<VersionBadge package version prefix hash linkable />
+```
 
 ## Build-time constants
 
@@ -96,8 +110,8 @@ The `VersionBadge` reads from three compile-time constants that can be injected 
 Configure these in `vite.config.ts`:
 
 <CodeBlock
-  language="ts"
   filename="vite.config.ts"
+  language="ts"
   code={`export default defineConfig({\n  define: {\n    __PACKAGE_VERSION__: JSON.stringify(process.env.npm_package_version),\n    __PACKAGE_NAME__: JSON.stringify(process.env.npm_package_name),\n    __GIT_HASH__: JSON.stringify(process.env.GIT_HASH || 'unknown'),\n  },\n  // ... other config\n})`}
 />
 
