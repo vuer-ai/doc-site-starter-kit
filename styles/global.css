@@ -7,7 +7,7 @@
     --color-bg:            255 255 255;
     --color-bg-secondary:  250 250 250;
     --color-text:          15  17  22;
-    --color-text-muted:    107 114 128;
+    --color-text-muted:    89 96 109;
     --color-border:        234 236 240;
     --color-sidebar-bg:    250 250 250;
     --color-sidebar-border:234 236 240;
@@ -21,30 +21,22 @@
     --color-bg:            20  20  24;
     --color-bg-secondary:  28  28  33;
     --color-text:          237 237 242;
-    --color-text-muted:    128 128 140;
+    --color-text-muted:    156 156 170;
     --color-border:        45  45  52;
     --color-sidebar-bg:    16  16  20;
     --color-sidebar-border:38  38  45;
-    --color-primary:       129 120 255;
+    --color-primary:       139 130 255;
     --color-primary-muted: 30  28  60;
     --color-bg-fog: rgba(20, 20, 24, 0.90);
     --color-hover:  rgba(255, 255, 255, 0.055);
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --color-bg:            20  20  24;
-      --color-bg-secondary:  28  28  33;
-      --color-text:          237 237 242;
-      --color-text-muted:    128 128 140;
-      --color-border:        45  45  52;
-      --color-sidebar-bg:    16  16  20;
-      --color-sidebar-border:38  38  45;
-      --color-primary:       129 120 255;
-      --color-primary-muted: 30  28  60;
-      --color-bg-fog: rgba(20, 20, 24, 0.90);
-      --color-hover:  rgba(255, 255, 255, 0.055);
-    }
+  /* Suppress all transitions during initial load to prevent theme flicker */
+  .no-transitions,
+  .no-transitions *,
+  .no-transitions *::before,
+  .no-transitions *::after {
+    transition: none !important;
   }
 
   html {
@@ -79,6 +71,21 @@
   h1, h2, h3, h4, h5, h6 {
     scroll-margin-top: 5.5rem; /* clears sticky navbar (3.5rem) + comfortable gap */
   }
+
+  /* Dark mode overrides for hardcoded Tailwind color classes */
+  [data-theme="dark"] .text-gray-900 { color: rgb(var(--color-text)) !important; }
+  [data-theme="dark"] .text-gray-800 { color: rgb(var(--color-text)) !important; }
+  [data-theme="dark"] .text-gray-700 { color: rgb(var(--color-text) / 0.85) !important; }
+  [data-theme="dark"] .text-gray-600 { color: rgb(var(--color-text) / 0.75) !important; }
+  [data-theme="dark"] .text-gray-500 { color: rgb(var(--color-text-muted)) !important; }
+  [data-theme="dark"] .text-gray-400 { color: rgb(var(--color-text-muted)) !important; }
+  [data-theme="dark"] .text-indigo-600 { color: rgb(var(--color-primary)) !important; }
+  [data-theme="dark"] .bg-indigo-600 { background-color: rgb(var(--color-primary)) !important; }
+  [data-theme="dark"] .bg-gray-50 { background-color: rgb(var(--color-bg-secondary)) !important; }
+  [data-theme="dark"] .bg-gray-100 { background-color: rgb(var(--color-bg-secondary)) !important; }
+  [data-theme="dark"] .border-gray-200 { border-color: rgb(var(--color-border)) !important; }
+  [data-theme="dark"] .border-gray-100 { border-color: rgb(var(--color-border)) !important; }
+  [data-theme="dark"] .divide-gray-200 > :not(:last-child) { border-color: rgb(var(--color-border)) !important; }
 }
 
 /* Sidebar navigation links */
@@ -86,12 +93,13 @@
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 0.375rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
+  font-weight: 400;
   transition: color 120ms, background-color 120ms;
-  color: rgb(var(--color-text-muted));
+  color: #4F7BFF;
 }
 .sidebar-link:hover {
   color: rgb(var(--color-text));
@@ -100,7 +108,8 @@
 .sidebar-link.active {
   color: rgb(var(--color-primary));
   background-color: rgb(var(--color-primary-muted));
-  font-weight: 500;
+  /* Use text-shadow to simulate bold without changing text width */
+  text-shadow: 0.03em 0 0 currentColor;
 }
 
 /* highlight.js token colors (dark-bg optimized) */
@@ -109,7 +118,7 @@
 .hljs-type                         { color: #6bc46d; }
 .hljs-literal, .hljs-number       { color: #6699cc; }
 .hljs-string, .hljs-regexp        { color: #96d0ff; }
-.hljs-comment                     { color: #768390; font-style: italic; }
+.hljs-comment                     { color: #8b949e; font-style: italic; }
 .hljs-attr, .hljs-attribute       { color: #6cb6ff; }
 .hljs-name, .hljs-tag             { color: #8ddb8c; }
 .hljs-variable,
@@ -147,4 +156,37 @@ h4:hover .heading-anchor {
 
 .heading-anchor:hover {
   color: rgb(var(--color-primary));
+}
+
+/* Focus-visible outlines for keyboard navigation (WCAG 2.4.7).
+   Form fields are excluded: they provide their own focus affordance
+   (border color change / focus ring) and the global outline renders
+   as an awkward square around rounded inputs. */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.5rem;
+  background: rgb(var(--color-primary));
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0 0 0.375rem 0;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 0;
 }

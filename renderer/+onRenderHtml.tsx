@@ -13,11 +13,11 @@ export async function onRenderHtml(pageContext: any) {
       </Layout>
     </PageContextProvider>
   )
-  const themeScript = dangerouslySkipEscape(`<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t||t==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})()</script>`)
+  const themeScript = dangerouslySkipEscape(`<script>(function(){document.documentElement.classList.add('no-transitions');try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark')}else if(t==='system'){var d=window.matchMedia('(prefers-color-scheme:dark)').matches;document.documentElement.setAttribute('data-theme',d?'dark':'light')}else{document.documentElement.setAttribute('data-theme','light')}}catch(e){document.documentElement.setAttribute('data-theme','light')}})()</script>`)
 
   return {
     documentHtml: escapeInject`<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

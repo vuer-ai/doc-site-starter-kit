@@ -146,16 +146,6 @@ export function Page() {
           />
         </div>
       </div>
-
-      <div className="flex items-center justify-between pt-8 border-t border-gray-200">
-        <span className="text-sm text-gray-400">Next up</span>
-        <a
-          href="/installation"
-          className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700"
-        >
-          Installation →
-        </a>
-      </div>
     </div>
   )
 }

@@ -151,15 +151,6 @@ export function Page() {
           </div>
         </div>
       </section>
-
-      <div className="flex items-center justify-between pt-8 border-t border-gray-200">
-        <a href="/getting-started" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
-          ← Getting Started
-        </a>
-        <a href="/configuration" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
-          Configuration →
-        </a>
-      </div>
     </div>
   )
 }

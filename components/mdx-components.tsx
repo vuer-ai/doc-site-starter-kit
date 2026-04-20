@@ -17,7 +17,12 @@ export const mdxComponents = {
     return (
       <code
         {...props}
-        className="bg-gray-100 text-gray-800 rounded px-1.5 py-0.5 text-sm font-mono"
+        className="rounded px-1.5 py-0.5 text-sm font-mono"
+        style={{
+          backgroundColor: 'rgb(var(--color-bg-secondary))',
+          color: 'rgb(var(--color-text))',
+          border: '1px solid rgb(var(--color-border))',
+        }}
       />
     )
   },

@@ -69,6 +69,9 @@ export function Search() {
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search documentation"
       style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
       onClick={() => setOpen(false)}
     >
@@ -94,6 +97,7 @@ export function Search() {
             }}
             onKeyDown={handleKeyDown}
             placeholder="Search pages..."
+            aria-label="Search pages"
             className="flex-1 py-4 bg-transparent outline-none text-sm"
             style={{ color: 'rgb(var(--color-text))' }}
           />
@@ -109,9 +113,9 @@ export function Search() {
           </kbd>
         </div>
 
-        <ul className="py-2 max-h-80 overflow-y-auto">
+        <ul className="py-2 max-h-80 overflow-y-auto" role="listbox" aria-label="Search results">
           {results.map((page, idx) => (
-            <li key={page.path}>
+            <li key={page.path} role="option" aria-selected={idx === activeIndex}>
               <a
                 href={page.path}
                 onClick={() => setOpen(false)}

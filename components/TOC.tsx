@@ -87,20 +87,25 @@ export function TOC() {
   if (!mounted || headings.length === 0) return null
 
   return (
-    <nav className="sticky top-24 hidden lg:block w-72 shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto">
-      <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+    <nav aria-label="Table of contents" className="sticky top-24 hidden lg:block w-72 shrink-0 max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <p
+        className="text-xs font-semibold uppercase tracking-wider mb-3"
+        style={{ color: 'rgb(var(--color-text-muted))' }}
+      >
         On this page
       </p>
-      <ul className="space-y-1">
+      <ul className="space-y-1" role="list">
         {headings.map((h) => (
           <li key={h.id} style={{ paddingLeft: h.level === 3 ? '0.75rem' : undefined }}>
             <a
               href={`#${h.id}`}
-              className={
-                activeId === h.id
-                  ? 'block text-sm text-indigo-600 font-medium'
-                  : 'block text-sm text-gray-500 hover:text-gray-800 transition-colors'
-              }
+              className="block text-sm transition-colors"
+              style={{
+                color: activeId === h.id
+                  ? 'rgb(var(--color-primary))'
+                  : 'rgb(var(--color-text-muted))',
+                fontWeight: activeId === h.id ? 500 : undefined,
+              }}
               style={{ scrollBehavior: 'smooth' }}
               onClick={(e) => {
                 e.preventDefault()

@@ -17,6 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           color: 'rgb(var(--color-text))',
         }}
       >
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <Navbar />
         <Search />
         <div className="flex">
@@ -24,7 +25,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex-1 min-w-0">
             <div className="flex">
               {/* main content — pb clears the fixed footer */}
-              <main className="flex-1 min-w-0 px-8 py-10 pb-[180px]">
+              <main id="main-content" className="flex-1 min-w-0 px-8 py-10 pb-[180px]">
                 <div className="max-w-2xl mx-auto">
                   {children}
                 </div>

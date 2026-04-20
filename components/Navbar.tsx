@@ -14,6 +14,7 @@ export function Navbar() {
 
   return (
     <header
+      role="banner"
       className="h-14 flex items-center px-5 border-b sticky top-0 z-30"
       style={{
         backgroundColor: 'rgb(var(--color-bg))',
@@ -37,7 +38,8 @@ export function Navbar() {
 
       <button
         onClick={openSearch}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm flex-1 max-w-xs mx-4"
+        aria-label="Search documentation"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm flex-1 max-w-xs mx-4"
         style={{
           backgroundColor: 'rgb(var(--color-bg-secondary))',
           border: '1px solid rgb(var(--color-border))',
@@ -74,7 +76,7 @@ export function Navbar() {
               onClick={() => setTheme(value)}
               aria-label={`${label} theme`}
               title={`${label} theme`}
-              className="flex items-center justify-center w-7 h-7 rounded transition-colors"
+              className="flex items-center justify-center w-8 h-8 rounded transition-colors"
               style={
                 isActive
                   ? {

@@ -222,15 +222,6 @@ PUBLIC_ANALYTICS_ID=UA-XXXXXX-X`}
           Never prefix secrets with these.
         </p>
       </section>
-
-      <div className="flex items-center justify-between pt-8 border-t border-gray-200">
-        <a href="/installation" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
-          ← Installation
-        </a>
-        <a href="/components" className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
-          Components →
-        </a>
-      </div>
     </div>
   )
 }

@@ -19,12 +19,12 @@ export function Sidebar() {
         borderColor: 'rgb(var(--color-sidebar-border))',
       }}
     >
-      <nav className="px-3 space-y-5">
+      <nav aria-label="Documentation" className="px-3 space-y-5">
         {Object.entries(sections).map(([section, items]) => (
           <div key={section}>
             <p
               className="px-3 mb-1.5 text-xs font-semibold uppercase tracking-wider"
-              style={{ color: 'rgb(var(--color-text-muted))' }}
+              style={{ color: '#4F7BFF' }}
             >
               {section}
             </p>
@@ -34,6 +34,7 @@ export function Sidebar() {
                   <a
                     href={item.path}
                     className={`sidebar-link${urlPathname === item.path ? ' active' : ''}`}
+                    aria-current={urlPathname === item.path ? 'page' : undefined}
                   >
                     {item.title}
                   </a>

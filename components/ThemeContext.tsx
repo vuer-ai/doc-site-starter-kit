@@ -8,25 +8,42 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'system',
+  theme: 'light',
   setTheme: () => {},
 })
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('system')
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'light'
+  const stored = localStorage.getItem('theme') as Theme | null
+  if (stored === 'light' || stored === 'dark' || stored === 'system') return stored
+  return 'light'
+}
 
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme)
+
+  // Suppress transitions during initial load to prevent flicker
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null
-    if (stored === 'light' || stored === 'dark' || stored === 'system') {
-      setThemeState(stored)
+    const stored = getInitialTheme()
+    if (stored === 'system') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light')
+    } else {
+      document.documentElement.setAttribute('data-theme', stored)
     }
+
+    // Re-enable transitions after first paint
+    requestAnimationFrame(() => {
+      document.documentElement.classList.remove('no-transitions')
+    })
   }, [])
 
   function setTheme(newTheme: Theme) {
     setThemeState(newTheme)
     localStorage.setItem('theme', newTheme)
     if (newTheme === 'system') {
-      document.documentElement.removeAttribute('data-theme')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light')
     } else {
       document.documentElement.setAttribute('data-theme', newTheme)
     }

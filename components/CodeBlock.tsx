@@ -20,13 +20,23 @@ export function CodeBlock({ code, language, filename }: CodeBlockProps) {
   }, [code, language])
 
   return (
-    <div className="rounded-lg overflow-hidden border border-gray-200 my-4">
+    <div
+      className="rounded-lg overflow-hidden my-4"
+      style={{ border: '1px solid rgb(var(--color-border))' }}
+    >
       {filename && (
-        <div className="px-4 py-2 bg-gray-100 border-b border-gray-200 text-xs text-gray-500 font-mono">
+        <div
+          className="px-4 py-2 text-xs font-mono"
+          style={{
+            backgroundColor: 'rgb(var(--color-bg-secondary))',
+            borderBottom: '1px solid rgb(var(--color-border))',
+            color: 'rgb(var(--color-text-muted))',
+          }}
+        >
           {filename}
         </div>
       )}
-      <pre className="overflow-x-auto p-4 bg-gray-950 text-sm leading-relaxed" style={{ margin: 0, border: 'none' }}>
+      <pre className="overflow-x-auto p-4 bg-gray-950 text-sm leading-relaxed" role="code" style={{ margin: 0, border: 'none' }}>
         <code
           className={`hljs ${language ? `language-${language}` : ''}`}
           dangerouslySetInnerHTML={{ __html: highlighted }}
