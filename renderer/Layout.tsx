@@ -1,15 +1,17 @@
 import React from 'react'
+import { usePageContext } from 'vike-react/usePageContext'
 import { Sidebar } from '../components/Sidebar'
 import { Navbar } from '../components/Navbar'
 import { DocFooter } from '../components/DocFooter'
-import { ThemeProvider } from '../components/ThemeContext'
+import { ThemeProvider, type Theme } from '../components/ThemeContext'
 import { TOC } from '../components/TOC'
 import { Search } from '../components/Search'
 import '../styles/global.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const pageContext = usePageContext() as { themeSelection?: Theme }
   return (
-    <ThemeProvider>
+    <ThemeProvider initialTheme={pageContext.themeSelection}>
       <div
         className="min-h-screen"
         style={{

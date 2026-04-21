@@ -76,6 +76,17 @@ export function Page() {
         </p>
       </div>
 
+      {/* Usage */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { Editor } from '../../components/CodeEditor'
+
+<Editor value={yamlSource} language="yaml" />`}
+        />
+      </div>
+
       {/* Example */}
       <div className="mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Example</h2>

@@ -32,6 +32,22 @@ export function Page() {
         </p>
       </div>
 
+      {/* Usage */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { Breadcrumb } from '../../components/BreadcrumbBar'
+
+<Breadcrumb
+  items={[
+    { icon: <ProjectDot /> },
+    { label: 'compare_fovit_dataset1' },
+  ]}
+/>`}
+        />
+      </div>
+
       {/* Example */}
       <div className="mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Example</h2>

@@ -60,6 +60,7 @@ export const pages: PageMeta[] = [
   { path: '/components/breadcrumb',     title: 'Breadcrumb',         section: 'Components' },
   { path: '/components/list',           title: 'List',               section: 'Components' },
   { path: '/components/file-tree',      title: 'File Tree',          section: 'Components' },
+  { path: '/components/waterfall',      title: 'Waterfall',          section: 'Components' },
   { path: '/components/line-chart',     title: 'Line Chart',         section: 'Components' },
   { path: '/components/editor',         title: 'Editor',             section: 'Components' },
   { path: '/components/callout',        title: 'Callout',            section: 'Components' },

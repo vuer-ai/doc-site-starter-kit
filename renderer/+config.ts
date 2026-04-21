@@ -1,3 +1,3 @@
 export default {
-  passToClient: ['pageProps', 'urlPathname'],
+  passToClient: ['pageProps', 'urlPathname', 'themeSelection'],
 }
