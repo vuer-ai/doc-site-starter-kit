@@ -34,6 +34,23 @@ export function Page() {
         </p>
       </div>
 
+      {/* Usage */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { List } from '../../components/ItemList'
+
+<List
+  items={[
+    { id: '1', name: 'zoomvit',    status: 'active', meta: '6d ago' },
+    { id: '2', name: 'trial_000',  parent: 'hparam-sweep', status: 'active', meta: '6d ago' },
+    { id: '3', name: 'trial_003',  parent: 'hparam-sweep', status: 'error',  meta: '6d ago' },
+  ]}
+/>`}
+        />
+      </div>
+
       {/* Example */}
       <div className="mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Example</h2>

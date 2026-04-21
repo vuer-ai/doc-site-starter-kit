@@ -62,6 +62,26 @@ export function Page() {
         </p>
       </div>
 
+      {/* Usage */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { Tabs, UnderlineTabs } from '../../components/TabBar'
+
+const [active, setActive] = useState('readme')
+
+<Tabs
+  tabs={[
+    { id: 'readme',    label: 'README' },
+    { id: 'dashboard', label: 'Dashboard' },
+  ]}
+  value={active}
+  onChange={setActive}
+/>`}
+        />
+      </div>
+
       {/* Example */}
       <div className="mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Example</h2>

@@ -88,48 +88,114 @@
   [data-theme="dark"] .divide-gray-200 > :not(:last-child) { border-color: rgb(var(--color-border)) !important; }
 }
 
+/* Site-wide panel radius (override Tailwind defaults) */
+.rounded-xl { border-radius: 28px !important; }
+/* Smaller inputs / cards / buttons use rounded-lg → 24px */
+.rounded-lg { border-radius: 24px !important; }
+/* Preview/demo panels use bg-gray-950/900 but should track the theme */
+.bg-gray-950, .bg-gray-900 { background-color: rgb(var(--color-bg)) !important; }
+/* Dark-intended component internals → theme-aware equivalents */
+.bg-gray-800 { background-color: rgb(var(--color-bg-secondary)) !important; }
+.bg-gray-800\/40, .bg-gray-800\/60 { background-color: rgb(var(--color-bg-secondary) / 0.6) !important; }
+.bg-gray-700 { background-color: rgb(var(--color-border)) !important; }
+.border-gray-800, .border-gray-700 { border-color: rgb(var(--color-border)) !important; }
+.text-gray-100 { color: rgb(var(--color-text)) !important; }
+.text-gray-200 { color: rgb(var(--color-text)) !important; }
+.text-gray-300 { color: rgb(var(--color-text) / 0.85) !important; }
+.text-white { color: rgb(var(--color-text)) !important; }
+.bg-white { background-color: rgb(var(--color-bg)) !important; }
+.hover\:text-gray-200:hover { color: rgb(var(--color-text)) !important; }
+.hover\:text-gray-300:hover { color: rgb(var(--color-text) / 0.85) !important; }
+.hover\:text-gray-100:hover { color: rgb(var(--color-text)) !important; }
+.placeholder\:text-gray-500::placeholder { color: rgb(var(--color-text-muted)) !important; }
+
+/* FileTree running-status indicator:
+   Stable blue core + translucent blue ring that breathes at 12 bpm (5s). */
+@keyframes file-tree-ring-breathe {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(59, 130, 246, 0.3); }
+  50%      { box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
+}
+.file-tree-running-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: #3b82f6;
+  animation: file-tree-ring-breathe 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .file-tree-running-dot {
+    animation: none;
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+  }
+}
+
 /* Sidebar navigation links */
+/* Sidebar: Tailwind-docs-style rail with active accent */
+.sidebar-list {
+  border-left: 1px solid rgb(var(--color-border));
+  margin-left: 0.75rem;
+}
 .sidebar-link {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
+  display: block;
+  padding: 0.375rem 1rem;
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.5rem;
   font-weight: 400;
-  transition: color 120ms, background-color 120ms;
-  color: #4F7BFF;
+  color: rgb(var(--color-text) / 0.65);
+  border-left: 2px solid transparent;
+  margin-left: -1px; /* overlap the list's 1px rail so the accent sits on it */
+  transition: color 120ms, border-color 120ms;
 }
 .sidebar-link:hover {
   color: rgb(var(--color-text));
-  background-color: rgb(var(--color-border) / 0.4);
 }
 .sidebar-link.active {
-  color: rgb(var(--color-primary));
-  background-color: rgb(var(--color-primary-muted));
-  /* Use text-shadow to simulate bold without changing text width */
-  text-shadow: 0.03em 0 0 currentColor;
+  color: rgb(var(--color-text));
+  font-weight: 600;
+  border-left-color: rgb(var(--color-primary));
 }
 
-/* highlight.js token colors (dark-bg optimized) */
-.hljs                              { color: #adbac7; }
-.hljs-keyword, .hljs-built_in     { color: #f47067; }
-.hljs-type                         { color: #6bc46d; }
-.hljs-literal, .hljs-number       { color: #6699cc; }
-.hljs-string, .hljs-regexp        { color: #96d0ff; }
-.hljs-comment                     { color: #8b949e; font-style: italic; }
-.hljs-attr, .hljs-attribute       { color: #6cb6ff; }
-.hljs-name, .hljs-tag             { color: #8ddb8c; }
+/* highlight.js token colors — light palette (GitHub-style) */
+.hljs                              { color: #24292f; }
+.hljs-keyword, .hljs-built_in      { color: #cf222e; }
+.hljs-type                         { color: #116329; }
+.hljs-literal, .hljs-number        { color: #0550ae; }
+.hljs-string, .hljs-regexp         { color: #0a3069; }
+.hljs-comment                      { color: #6e7781; font-style: italic; }
+.hljs-attr, .hljs-attribute        { color: #0550ae; }
+.hljs-name, .hljs-tag              { color: #116329; }
 .hljs-variable,
-.hljs-template-variable           { color: #f69d50; }
-.hljs-title, .hljs-section        { color: #dcbdfb; font-weight: 600; }
+.hljs-template-variable            { color: #953800; }
+.hljs-title, .hljs-section         { color: #8250df; font-weight: 600; }
 .hljs-selector-class,
-.hljs-selector-id                 { color: #dcbdfb; }
-.hljs-addition                    { color: #6bc46d; background: rgba(107,196,109,.12); }
-.hljs-deletion                    { color: #e5534b; background: rgba(229,83,75,.12);  }
-.hljs-emphasis                    { font-style: italic; }
-.hljs-strong                      { font-weight: bold; }
+.hljs-selector-id                  { color: #8250df; }
+.hljs-addition                     { color: #116329; background: rgba(18,98,41,.08); }
+.hljs-deletion                     { color: #cf222e; background: rgba(207,34,46,.08); }
+.hljs-emphasis                     { font-style: italic; }
+.hljs-strong                       { font-weight: bold; }
+
+/* highlight.js token colors — dark palette (primer-dark) */
+[data-theme="dark"] .hljs                              { color: #adbac7; }
+[data-theme="dark"] .hljs-keyword,
+[data-theme="dark"] .hljs-built_in                     { color: #f47067; }
+[data-theme="dark"] .hljs-type                         { color: #6bc46d; }
+[data-theme="dark"] .hljs-literal,
+[data-theme="dark"] .hljs-number                       { color: #6699cc; }
+[data-theme="dark"] .hljs-string,
+[data-theme="dark"] .hljs-regexp                       { color: #96d0ff; }
+[data-theme="dark"] .hljs-comment                      { color: #8b949e; font-style: italic; }
+[data-theme="dark"] .hljs-attr,
+[data-theme="dark"] .hljs-attribute                    { color: #6cb6ff; }
+[data-theme="dark"] .hljs-name,
+[data-theme="dark"] .hljs-tag                          { color: #8ddb8c; }
+[data-theme="dark"] .hljs-variable,
+[data-theme="dark"] .hljs-template-variable            { color: #f69d50; }
+[data-theme="dark"] .hljs-title,
+[data-theme="dark"] .hljs-section                      { color: #dcbdfb; font-weight: 600; }
+[data-theme="dark"] .hljs-selector-class,
+[data-theme="dark"] .hljs-selector-id                  { color: #dcbdfb; }
+[data-theme="dark"] .hljs-addition                     { color: #6bc46d; background: rgba(107,196,109,.12); }
+[data-theme="dark"] .hljs-deletion                     { color: #e5534b; background: rgba(229,83,75,.12);  }
 
 /* Heading anchor links */
 h1, h2, h3, h4, h5, h6 {
