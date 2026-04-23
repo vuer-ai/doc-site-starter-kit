@@ -144,14 +144,17 @@
   color: rgb(var(--color-text) / 0.65);
   border-left: 2px solid transparent;
   margin-left: -1px; /* overlap the list's 1px rail so the accent sits on it */
-  transition: color 120ms, border-color 120ms;
+  /* Snap the active-item color/border instantly on navigation — a 120ms fade
+     across remounts reads as a flicker. */
 }
 .sidebar-link:hover {
   color: rgb(var(--color-text));
 }
 .sidebar-link.active {
   color: rgb(var(--color-text));
-  font-weight: 600;
+  /* Fake bold via text-shadow so the text width stays identical (font-weight
+     600 would reflow adjacent links by a pixel or two, reading as flicker). */
+  text-shadow: 0.03em 0 0 currentColor;
   border-left-color: rgb(var(--color-primary));
 }
 

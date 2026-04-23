@@ -1,13 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CodeBlock } from '../../../components/CodeBlock'
-import { Breadcrumb } from '../../../components/BreadcrumbBar'
+import { Breadcrumb, type BreadcrumbItem } from '../../../components/BreadcrumbBar'
 
 const DOT = <span className="inline-block w-2 h-2 rounded-full bg-orange-500" />
 
-const EXAMPLE_ITEMS = [
+const FULL_PATH: BreadcrumbItem[] = [
+  { icon: DOT },
+  { label: 'hparam-sweep' },
+  { label: 'run-2026-03-30' },
+  { label: 'compare_fovit_dataset1' },
+]
+
+const EXAMPLE_ITEMS: BreadcrumbItem[] = [
   { icon: DOT },
   { label: 'compare_fovit_dataset1' },
 ]
+
+function NavigateDemo() {
+  const [depth, setDepth] = useState(FULL_PATH.length)
+  const items = FULL_PATH.slice(0, depth)
+  return (
+    <div className="space-y-3">
+      <Breadcrumb items={items} onNavigate={i => setDepth(i + 1)} />
+      {depth < FULL_PATH.length && (
+        <button
+          type="button"
+          onClick={() => setDepth(FULL_PATH.length)}
+          className="text-xs text-gray-400 hover:text-gray-200 underline"
+        >
+          reset path
+        </button>
+      )}
+    </div>
+  )
+}
 
 export function Page() {
   return (
@@ -60,6 +86,19 @@ export function Page() {
           </div>
           <div className="p-6 bg-gray-950">
             <Breadcrumb items={EXAMPLE_ITEMS} />
+          </div>
+        </div>
+
+        <p className="text-gray-500 mb-6">
+          Click any parent segment to jump to that level — the path truncates to the
+          clicked segment. Uses the <code>onNavigate(index)</code> prop.
+        </p>
+        <div className="rounded-xl border border-gray-200 overflow-hidden mb-6">
+          <div className="px-4 py-2.5 border-b border-gray-200 bg-gray-50">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Preview — click to jump</span>
+          </div>
+          <div className="p-6 bg-gray-950">
+            <NavigateDemo />
           </div>
         </div>
       </div>

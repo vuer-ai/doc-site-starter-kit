@@ -122,8 +122,9 @@ const PROJECT_TABS = [
 ]
 
 const PROJECTS = [
-  { name: 'astribot',            initial: 'A', updated: '1 hour ago', tag: 'Machine Learning', stat: 206, activeRuns: 0 },
-  { name: 'eye-gaze-prediction', initial: 'E', updated: '9 days ago', tag: 'Machine Learning', stat: 201, activeRuns: 1 },
+  { name: 'eye-tracking-device', initial: 'E', updated: '25 days ago',    tag: 'Machine Learning', stat: 7,   activeRuns: 0 },
+  { name: 'astribot',            initial: 'A', updated: '6 days ago',     tag: 'Machine Learning', stat: 136, activeRuns: 0 },
+  { name: 'eye-gaze-prediction', initial: 'E', updated: '24 minutes ago', tag: 'Machine Learning', stat: 191, activeRuns: 1 },
 ]
 
 function PopulatedExample() {
@@ -163,17 +164,17 @@ function PopulatedExample() {
             <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-center gap-3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-500"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg>
-                <span className="font-semibold text-gray-100">2</span>
+                <span className="font-semibold text-gray-100">3</span>
                 <span className="text-gray-400">Projects</span>
               </li>
               <li className="flex items-center gap-3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-500"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg>
-                <span className="font-semibold text-gray-100">0</span>
+                <span className="font-semibold text-gray-100">1</span>
                 <span className="text-gray-400">Active runs</span>
               </li>
               <li className="flex items-center gap-3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-500"><path d="M3 3v18h18M7 15l4-4 4 4 5-5"/></svg>
-                <span className="font-semibold text-gray-100">407</span>
+                <span className="font-semibold text-gray-100">334</span>
                 <span className="text-gray-400">Experiments</span>
               </li>
             </ul>

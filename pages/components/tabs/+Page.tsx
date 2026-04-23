@@ -1,6 +1,38 @@
 import React, { useState } from 'react'
 import { CodeBlock } from '../../../components/CodeBlock'
-import { Tabs, UnderlineTabs } from '../../../components/TabBar'
+import { Tabs, UnderlineTabs, IconTabs } from '../../../components/TabBar'
+
+function ListViewIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <rect x="4" y="5" width="16" height="6" rx="3" />
+      <rect x="4" y="13" width="16" height="6" rx="3" />
+    </svg>
+  )
+}
+
+function GridViewIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M4 12h16M12 4v16" />
+    </svg>
+  )
+}
+
+function IconTabsDemo() {
+  const [view, setView] = useState('list')
+  return (
+    <IconTabs
+      tabs={[
+        { id: 'list', icon: <ListViewIcon />, label: 'List view' },
+        { id: 'grid', icon: <GridViewIcon />, label: 'Grid view' },
+      ]}
+      value={view}
+      onChange={setView}
+    />
+  )
+}
 
 const EXAMPLE_TABS = [
   { id: 'readme',     label: 'README' },
@@ -94,6 +126,20 @@ const [active, setActive] = useState('readme')
           </div>
           <div className="p-6 bg-gray-950">
             <ControlledDemo />
+          </div>
+        </div>
+
+        <p className="text-gray-500 mt-10 mb-6">
+          <strong>IconTabs</strong> — icon-only segmented control for view switchers
+          (e.g. list / grid). Same pill container as <code>Tabs</code>, but each
+          button is square-ish and renders an icon.
+        </p>
+        <div className="rounded-xl border border-gray-200 overflow-hidden mb-6">
+          <div className="px-4 py-2.5 border-b border-gray-200 bg-gray-50">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Preview — view switcher</span>
+          </div>
+          <div className="p-6 bg-gray-950">
+            <IconTabsDemo />
           </div>
         </div>
       </div>

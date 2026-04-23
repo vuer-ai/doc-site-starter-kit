@@ -2,14 +2,16 @@ import React from 'react'
 import { CodeBlock } from '../../../components/CodeBlock'
 import { List } from '../../../components/ItemList'
 
+const PARENT = 'shovel-popcorn-unet-dm-action_norm_bug'
+
 const EXAMPLE_ITEMS = [
-  { id: '1', name: 'zoomvit',       status: 'active' as const, meta: '6d ago' },
-  { id: '2', name: 'vanillavit',    status: 'active' as const, meta: '6d ago' },
-  { id: '3', name: 'zoom_dataset2', status: 'active' as const, meta: '5d ago' },
-  { id: '4', name: 'trial_000', parent: 'hparam-sweep', status: 'active' as const, meta: '6d ago' },
-  { id: '5', name: 'trial_001', parent: 'hparam-sweep', status: 'active' as const, meta: '6d ago' },
-  { id: '6', name: 'trial_002', parent: 'hparam-sweep', status: 'idle'   as const, meta: '6d ago' },
-  { id: '7', name: 'trial_003', parent: 'hparam-sweep', status: 'error'  as const, meta: '6d ago' },
+  { id: '1', name: 'trial_004', parent: PARENT, status: 'active' as const, meta: '3/30/2026' },
+  { id: '2', name: 'trial_001', parent: PARENT, status: 'active' as const, meta: '3/30/2026' },
+  { id: '3', name: 'trial_000', parent: PARENT, status: 'error'  as const, meta: '3/30/2026' },
+  { id: '4', name: 'trial_005', parent: PARENT, status: 'active' as const, meta: '3/30/2026' },
+  { id: '5', name: 'trial_006', parent: PARENT, status: 'active' as const, meta: '3/30/2026' },
+  { id: '6', name: 'trial_009', parent: PARENT, status: 'active' as const, meta: '3/30/2026' },
+  { id: '7', name: 'trial_012', parent: PARENT, status: 'idle'   as const, meta: '3/29/2026' },
 ]
 
 export function Page() {
@@ -66,6 +68,7 @@ export function Page() {
             <div className="max-w-lg">
               <List
                 items={EXAMPLE_ITEMS}
+                total={225}
                 onDelete={ids => console.log('delete', ids)}
               />
             </div>

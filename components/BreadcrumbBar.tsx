@@ -16,12 +16,19 @@ export interface BreadcrumbProps {
   items: BreadcrumbItem[]
   /** Separator between segments. Defaults to '/'. */
   separator?: React.ReactNode
+  /**
+   * Fires when a non-current segment is clicked, with the index of the clicked
+   * segment. Use this to "jump to that level" (e.g. `setItems(items.slice(0, i + 1))`).
+   * Called after the segment's own `onClick`/`href` navigation.
+   */
+  onNavigate?: (index: number) => void
   className?: string
 }
 
 export function Breadcrumb({
   items,
   separator = '/',
+  onNavigate,
   className = '',
 }: BreadcrumbProps) {
   return (
@@ -35,6 +42,14 @@ export function Breadcrumb({
           </>
         )
 
+        const handleClick = (e: React.MouseEvent) => {
+          item.onClick?.()
+          if (onNavigate) {
+            if (item.href) e.preventDefault()
+            onNavigate(i)
+          }
+        }
+
         const segment = isLast ? (
           <span
             aria-current="page"
@@ -45,7 +60,7 @@ export function Breadcrumb({
         ) : item.href ? (
           <a
             href={item.href}
-            onClick={item.onClick}
+            onClick={handleClick}
             className="inline-flex items-center gap-1.5 px-2 py-1 text-sm text-gray-400 hover:text-gray-200 transition-colors"
           >
             {content}
@@ -53,7 +68,7 @@ export function Breadcrumb({
         ) : (
           <button
             type="button"
-            onClick={item.onClick}
+            onClick={handleClick}
             className="inline-flex items-center gap-1.5 px-2 py-1 text-sm text-gray-400 hover:text-gray-200 transition-colors"
           >
             {content}
