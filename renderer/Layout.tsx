@@ -1,17 +1,19 @@
 import React from 'react'
+import { usePageContext } from 'vike-react/usePageContext'
 import { Sidebar } from '../components/Sidebar'
 import { Navbar } from '../components/Navbar'
 import { DocFooter } from '../components/DocFooter'
-import { ThemeProvider } from '../components/ThemeContext'
+import { ThemeProvider, type Theme } from '../components/ThemeContext'
 import { TOC } from '../components/TOC'
 import { Search } from '../components/Search'
 import '../styles/global.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const pageContext = usePageContext() as { themeSelection?: Theme }
   return (
-    <ThemeProvider>
+    <ThemeProvider initialTheme={pageContext.themeSelection}>
       <div
-        className="min-h-screen"
+        className="h-screen flex flex-col"
         style={{
           backgroundColor: 'rgb(var(--color-bg))',
           color: 'rgb(var(--color-text))',
@@ -20,9 +22,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Navbar />
         <Search />
-        <div className="flex">
+        {/* Sidebar + main live in their own flex row with constrained height so
+            each column scrolls independently. This keeps the sidebar rock-stable
+            when the main content swaps during SPA navigation. */}
+        <div className="flex flex-1 min-h-0">
           <Sidebar />
-          <div className="flex-1 min-w-0">
+          <div id="main-scroll" className="flex-1 min-w-0 overflow-y-auto">
             <div className="flex">
               {/* main content — pb clears the fixed footer */}
               <main id="main-content" className="flex-1 min-w-0 px-8 py-10 pb-[180px]">

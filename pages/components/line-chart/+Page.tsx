@@ -53,6 +53,24 @@ export function Page() {
         </p>
       </div>
 
+      {/* Usage */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { LineChart } from '../../components/LineChart'
+
+<LineChart
+  title="eval.avg_euclidean_distance"
+  xAxisLabel="Step"
+  yAxisLabel="Distance"
+  series={[
+    { label: 'loss', color: '#5470c6', data: [{ x: 0, y: 1.2 }, { x: 1, y: 0.8 }] },
+  ]}
+/>`}
+        />
+      </div>
+
       {/* Example */}
       <div className="mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Example</h2>

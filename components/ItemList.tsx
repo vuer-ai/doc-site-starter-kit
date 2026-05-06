@@ -7,11 +7,16 @@ export interface ListItemData {
   name: string
   parent?: string
   status?: ListItemStatus
+  /** Trailing right-aligned cell (date, size, etc.). */
   meta?: string
 }
 
 export interface ListProps {
   items: ListItemData[]
+  /** Total number of items across all pages. Falls back to `items.length`. */
+  total?: number
+  /** 1-indexed page number for the "X-Y of Total" readout. Default 1. */
+  page?: number
   searchable?: boolean
   selectable?: boolean
   defaultSelectedIds?: string[]
@@ -48,7 +53,15 @@ function CheckIcon({ className = '' }: { className?: string }) {
   )
 }
 
-function Checkbox({ checked, indeterminate, onChange }: { checked: boolean; indeterminate?: boolean; onChange: () => void }) {
+function Checkbox({
+  checked,
+  indeterminate,
+  onChange,
+}: {
+  checked: boolean
+  indeterminate?: boolean
+  onChange: () => void
+}) {
   const filled = checked || indeterminate
   return (
     <button
@@ -56,14 +69,15 @@ function Checkbox({ checked, indeterminate, onChange }: { checked: boolean; inde
       onClick={onChange}
       aria-checked={indeterminate ? 'mixed' : checked}
       role="checkbox"
-      className={`w-[18px] h-[18px] shrink-0 rounded-[5px] flex items-center justify-center transition-colors ${
-        filled
-          ? 'bg-blue-500 text-white'
-          : 'bg-transparent border border-gray-600 hover:border-gray-500'
-      }`}
+      className="w-[18px] h-[18px] shrink-0 rounded-[5px] flex items-center justify-center transition-colors"
+      style={{
+        backgroundColor: filled ? 'rgb(var(--color-primary))' : 'transparent',
+        border: filled ? 'none' : '1.5px solid rgb(var(--color-border))',
+        color: '#fff',
+      }}
     >
       {indeterminate ? (
-        <div className="w-2.5 h-0.5 bg-white rounded-full" />
+        <div className="w-2.5 h-0.5 rounded-full" style={{ backgroundColor: '#fff' }} />
       ) : checked ? (
         <CheckIcon className="w-3 h-3" />
       ) : null}
@@ -72,13 +86,15 @@ function Checkbox({ checked, indeterminate, onChange }: { checked: boolean; inde
 }
 
 const STATUS_DOT: Record<ListItemStatus, string> = {
-  active: 'bg-emerald-500',
-  idle: 'bg-gray-500',
-  error: 'bg-red-500',
+  active: '#22c55e',
+  idle: '#9ca3af',
+  error: '#ef4444',
 }
 
 export function List({
   items,
+  total,
+  page = 1,
   searchable = true,
   selectable = true,
   defaultSelectedIds,
@@ -89,7 +105,7 @@ export function List({
 }: ListProps) {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState<Set<string>>(
-    () => new Set(defaultSelectedIds ?? items.map(i => i.id))
+    () => new Set(defaultSelectedIds ?? []),
   )
 
   const filtered = useMemo(() => {
@@ -104,6 +120,9 @@ export function List({
 
   const allSelected = filtered.length > 0 && filtered.every(i => selected.has(i.id))
   const someSelected = filtered.some(i => selected.has(i.id))
+  const effectiveTotal = total ?? items.length
+  const pageStart = filtered.length === 0 ? 0 : (page - 1) * items.length + 1
+  const pageEnd = filtered.length === 0 ? 0 : pageStart + filtered.length - 1
 
   const commit = (next: Set<string>) => {
     setSelected(next)
@@ -126,77 +145,129 @@ export function List({
 
   return (
     <div
-      className={`bg-gray-900/60 border border-gray-800 rounded-3xl p-3 flex flex-col gap-3 ${className}`}
+      className={`rounded-3xl border p-4 flex flex-col gap-3 ${className}`}
+      style={{
+        backgroundColor: 'rgb(var(--color-bg))',
+        borderColor: 'rgb(var(--color-border))',
+      }}
     >
-      <div className="flex items-center gap-3">
-        {selectable && (
-          <Checkbox
-            checked={allSelected}
-            indeterminate={!allSelected && someSelected}
-            onChange={toggleAll}
-          />
-        )}
-        {searchable && (
-          <div className="relative flex-1">
-            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
-            <input
-              type="text"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder={searchPlaceholder}
-              className="w-full pl-11 pr-4 py-2.5 text-sm bg-gray-800/40 border border-gray-800 rounded-full text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-gray-700 transition-colors"
-            />
-          </div>
-        )}
-        {onDelete && (
-          <button
-            type="button"
-            onClick={() => onDelete(Array.from(selected))}
-            aria-label="Delete selected"
-            className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-200 hover:bg-white/5 transition-colors"
+      {searchable && (
+        <div className="relative">
+          <span
+            className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ color: 'rgb(var(--color-text-muted))' }}
           >
-            <TrashIcon className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-
-      {selectable && (
-        <div className="px-2 text-xs text-emerald-400 flex items-center gap-1.5">
-          <CheckIcon className="w-3 h-3" />
-          <span>
-            {allSelected
-              ? `All ${filtered.length} ${filtered.length === 1 ? 'item' : 'items'} selected`
-              : `${selected.size} of ${filtered.length} selected`}
+            <SearchIcon className="w-4 h-4" />
           </span>
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder={searchPlaceholder}
+            className="w-full pl-11 pr-4 py-3 text-sm border focus:outline-none transition-colors"
+            style={{
+              backgroundColor: 'rgb(var(--color-bg-secondary))',
+              borderColor: 'rgb(var(--color-border))',
+              color: 'rgb(var(--color-text))',
+              borderRadius: '9999px',
+            }}
+          />
         </div>
       )}
 
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-3">
+          {selectable && (
+            <Checkbox
+              checked={allSelected}
+              indeterminate={!allSelected && someSelected}
+              onChange={toggleAll}
+            />
+          )}
+          {selectable && (
+            <button
+              type="button"
+              onClick={toggleAll}
+              className="text-sm font-medium hover:underline"
+              style={{ color: 'rgb(var(--color-primary))' }}
+            >
+              {allSelected
+                ? `Deselect all ${filtered.length} on this page`
+                : `Select all ${filtered.length} on this page`}
+            </button>
+          )}
+          {onDelete && selected.size > 0 && (
+            <button
+              type="button"
+              onClick={() => onDelete(Array.from(selected))}
+              aria-label="Delete selected"
+              className="ml-2 shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-colors"
+              style={{ color: 'rgb(var(--color-text-muted))' }}
+            >
+              <TrashIcon className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+        <span
+          className="text-sm tabular-nums shrink-0"
+          style={{ color: 'rgb(var(--color-text-muted))' }}
+        >
+          {pageStart}-{pageEnd} of {effectiveTotal}
+        </span>
+      </div>
+
       <ul className="flex flex-col">
         {filtered.length === 0 ? (
-          <li className="px-3 py-6 text-sm text-gray-500 text-center">No items.</li>
+          <li
+            className="px-3 py-6 text-sm text-center"
+            style={{ color: 'rgb(var(--color-text-muted))' }}
+          >
+            No items.
+          </li>
         ) : (
-          filtered.map(item => {
+          filtered.map((item, i) => {
             const isSelected = selected.has(item.id)
+            const isLast = i === filtered.length - 1
             return (
               <li key={item.id}>
-                <label className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                <label
+                  className="flex items-center gap-3 px-2 py-3 cursor-pointer transition-colors"
+                  style={{
+                    borderBottom: isLast
+                      ? 'none'
+                      : '1px solid rgb(var(--color-border) / 0.6)',
+                  }}
+                >
                   {selectable && (
                     <Checkbox checked={isSelected} onChange={() => toggleOne(item.id)} />
                   )}
                   {item.status && (
                     <span
-                      className={`w-2 h-2 rounded-full shrink-0 ${STATUS_DOT[item.status]}`}
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: STATUS_DOT[item.status] }}
                       aria-label={item.status}
                     />
                   )}
                   <span className="flex-1 min-w-0 text-sm truncate">
                     {item.parent && (
-                      <span className="text-gray-500">{item.parent} / </span>
+                      <span style={{ color: 'rgb(var(--color-text-muted))' }}>
+                        {item.parent} / <span aria-hidden>…</span> /{' '}
+                      </span>
                     )}
-                    <span className="text-gray-100">{item.name}</span>
+                    <span
+                      className="font-medium"
+                      style={{ color: 'rgb(var(--color-text))' }}
+                    >
+                      {item.name}
+                    </span>
                   </span>
                   {item.meta && (
-                    <span className="shrink-0 text-xs text-gray-500">{item.meta}</span>
+                    <span
+                      className="shrink-0 text-sm tabular-nums"
+                      style={{ color: 'rgb(var(--color-text-muted))' }}
+                    >
+                      {item.meta}
+                    </span>
                   )}
                 </label>
               </li>

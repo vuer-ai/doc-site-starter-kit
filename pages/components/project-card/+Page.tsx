@@ -49,6 +49,29 @@ export function Page() {
         </p>
       </div>
 
+      {/* Usage */}
+      <div className="mb-14">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Usage</h2>
+        <CodeBlock
+          language="tsx"
+          code={`import { ProjectCard } from '../../components/ProjectCard'
+
+<ProjectCard
+  id="new-redies-4"
+  name="new-redies-4"
+  initial="N"
+  updated="4 days ago"
+  tag="Machine Learning"
+  stat={1}
+  activeRuns={0}
+  selected
+  href="/projects/new-redies-4"
+  onEdit={() => edit(id)}
+  onDelete={() => remove(id)}
+/>`}
+        />
+      </div>
+
       {/* Example */}
       <div className="mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Example</h2>

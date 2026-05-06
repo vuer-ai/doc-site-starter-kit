@@ -21,7 +21,7 @@ export function CodeBlock({ code, language, filename }: CodeBlockProps) {
 
   return (
     <div
-      className="rounded-lg overflow-hidden my-4"
+      className="rounded-xl overflow-hidden my-4"
       style={{ border: '1px solid rgb(var(--color-border))' }}
     >
       {filename && (
@@ -36,7 +36,11 @@ export function CodeBlock({ code, language, filename }: CodeBlockProps) {
           {filename}
         </div>
       )}
-      <pre className="overflow-x-auto p-4 bg-gray-950 text-sm leading-relaxed" role="code" style={{ margin: 0, border: 'none' }}>
+      <pre
+        className="overflow-x-auto p-4 text-sm leading-relaxed"
+        role="code"
+        style={{ margin: 0, border: 'none', backgroundColor: 'rgb(var(--color-bg-secondary))' }}
+      >
         <code
           className={`hljs ${language ? `language-${language}` : ''}`}
           dangerouslySetInnerHTML={{ __html: highlighted }}
